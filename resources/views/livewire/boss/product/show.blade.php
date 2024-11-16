@@ -52,6 +52,10 @@
                         <td>{{$category_id}}</td>
                     </tr>
                     <tr>
+                        <th>Mahsulot sup kategoriyasi</th>
+                        <td>{{$sup_id}}</td>
+                    </tr>
+                    <tr>
                         <th>Mahsulotni holoti</th>
                         <td><button class="btn btn-{{$status == 'active' ? 'success': 'danger'}}">{{$status}}</button></td>
                     </tr>

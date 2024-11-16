@@ -45,8 +45,9 @@ class ProductController extends Controller
                 'status'=>$request->status,
                 'description'=>$request->description,
                 'category_id'=>$request->category_id,
-                'brend_id'=>$request->brend_id
-            ]);
+                'brend_id'=>$request->brend_id,
+                'sup_id'=>$request->sup_id
+                ]);
             foreach ($request->file('image') as $image) {
                 $imgName = md5(rand(111,999).microtime()).".".$image->extension();
                 ProductImage::create([
@@ -115,7 +116,8 @@ class ProductController extends Controller
             'status'=>$request->status,
             'description'=>$request->description,
             'category_id'=>$request->category_id,
-            'brend_id'=>$request->brend_id
+            'brend_id'=>$request->brend_id,
+            'sup_id'=>$request->sup_id
         ]);
 
         return redirect()->route('product.index')->with('update','Product created successfully');

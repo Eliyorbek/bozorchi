@@ -1,4 +1,9 @@
 <div>
+    @php
+        $categories = \App\Models\Category::where('status' , 'active')->get();
+        $brends = \App\Models\Brend::where('status', 'active')->get();
+        $sups = \App\Models\SupCategory::where('status' , 'active')->get();
+    @endphp
     <div class="modalShow">
         <div class="card-content">
             <div class="modal-header">
@@ -10,40 +15,52 @@
                     @csrf
                     @method('PUT')
                     <input type="hidden" value="{{$id}}" name="id">
-                    <div class="form-group">
-                        <label for="name" class="name">Name</label>
-                        <input type="text" id="name" name="name" class="form-control" wire:model="name" placeholder="Mahsulot nomini kiriting">
-                    </div>
                     <div class="row">
+                        <div class="form-group col-6">
+                            <label for="name" class="name">Nomi</label>
+                            <input type="text" id="name" name="name" class="form-control" wire:model="name" placeholder="Mahsulot nomini kiriting">
+                        </div>
                         <div class="form-group col-6">
                             <label for="price">Narxi</label>
-                            <input type="text" name="price" id="price" wire:model="price" placeholder="Mahsulot narxini kiriting" class="form-control">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="pric">Soni</label>
-                            <input type="number" name="count" id="pric" wire:model="count" placeholder="Mahsulotning sonini kiriting" class="form-control">
+                            <input type="number" name="price" id="price" wire:model="price" placeholder="Mahsulot narxini kiriting" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-6">
-                            <label for="pri">Category</label>
-                            @php $categories = \App\Models\Category::where('status' , 'active')->get();$brends = \App\Models\Brend::where('status', 'active')->get() @endphp
-                            <select name="category" wire:model="category" id="" class="form-control">
+                            <label for="pric">Miqdori</label>
+                            <input type="number" name="count" id="pric" wire:model="count" placeholder="Mahsulotning miqdorini kiriting" class="form-control">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="pri">O'lchov turini</label>
+                            <select class="form-select" name="brend_id" id="basic-usage" data-placeholder="Choose one thing">
+                                <option>O'lchov turini tanlang</option>
+                                @if($brends != null)
+                                    @foreach($brends as $olchov)
+                                        <option  value="{{$olchov->id}}" {{$olchov->id==$brend_id?'selected':''}}>{{$olchov->name}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="pri">Kategoriyasi</label>
+                            <select class="form-select" id="basic-usage" name="category_id" wire:model="category_id" data-placeholder="Choose one thing">
                                 <option value="">Kategoriyani tanlang</option>
                                 @if($categories != null)
                                     @foreach($categories as $category)
-                                        <option  value="{{$category->id}}">{{$category->name}}</option>
+                                        <option  value="{{$category->id}}" {{$category->id==$category_id?'selected':''}}>{{$category->name}}</option>
                                     @endforeach
                                 @endif
                             </select>
                         </div>
                         <div class="form-group col-6">
-                            <label for="pri">Brend</label>
-                            <select name="brend" wire:model="brend" id="" class="form-control">
-                                <option value="">Brendini tanlang</option>
-                                @if($brends != null)
-                                    @foreach($brends as $category)
-                                        <option  value="{{$category->id}}">{{$category->name}}</option>
+                            <label for="pri">Sup kategoriyasi</label>
+                            <select class="form-select" id="basic-usage" name="sup_id" wire:model="sup_id" data-placeholder="Choose one thing">
+                                <option value="">Kategoriyaqa qarashligini tanlang</option>
+                                @if($sups != null)
+                                    @foreach($sups as $sup)
+                                        <option  value="{{$sup->id}}">{{$sup->name}}</option>
                                     @endforeach
                                 @endif
                             </select>

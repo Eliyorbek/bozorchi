@@ -9,9 +9,9 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductIncomeController;
 use App\Http\Controllers\Backend\SupController;
 use App\Http\Controllers\Backend\SupplierController;
-use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +38,8 @@ Route::middleware('admin')->group(function(){
 
 //    Sup kategoriyalar
     Route::resource('/sup-category' , SupController::class);
+// Zakasni yetkazish
+    Route::resource('/delivery' , DeliveryController::class);
 
 //    Brend page route
     Route::resource('/brend' , BrendController::class);

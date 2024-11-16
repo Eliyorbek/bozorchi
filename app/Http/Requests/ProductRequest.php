@@ -27,6 +27,7 @@ class ProductRequest extends FormRequest
             'count'=>'required',
             'brend_id'=>'required',
             'category_id'=>'required',
+            'sup_id'=>'required',
         ];
     }
 }

@@ -26,7 +26,7 @@
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
                                 <td style="text-transform: none">{{$user->email}}</td>
-                                <td style="text-transform: none">{{$user->role ==1 ? 'Boshliq' : 'Sotuvchi'}}</td>
+                                <td style="text-transform: none">{{$user->role ==1 ? 'Boshliq' : 'Kuryer'}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" wire:click="updateWindow({{$user->id}})"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-info btn-sm" wire:click="editPageOpen({{$user->id}})"><i class="fa fa-key"></i></button>

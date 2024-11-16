@@ -112,8 +112,14 @@ use Illuminate\Support\Facades\Auth;
             </ul>
         </li>
         <li class="nav-item">
+            <a href="{{route('delivery.index')}}" class="nav-link">
+                <i class="nav-icon fa-solid fa-truck"></i>
+                <p>Buyutmalarni yetkazish</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="./index3.html" class="nav-link">
-                <i class="fa-solid fa-money-bill-wave"></i>
+                <i class="nav-icon fa-solid fa-money-bill-wave"></i>
                 <p>To'lovlar</p>
             </a>
         </li>

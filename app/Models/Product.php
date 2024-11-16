@@ -30,4 +30,8 @@ class Product extends Model
     public function images(){
         return $this->hasMany(ProductImage::class,'product_id');
     }
+
+    public function sup(){
+        return $this->belongsTo(SupCategory::class , 'sup_id');
+    }
 }

@@ -27,25 +27,39 @@
 
 @livewireScripts
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+
 <script src="/back/plugins/chart.js/Chart.min.js"></script>
 <script src="/back/plugins/jqvmap/jquery.vmap.min.js"></script>
 <script src="/back/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<script src="/back/plugins/jquery-knob/jquery.knob.min.js"></script>
 <script src="/back/plugins/moment/moment.min.js"></script>
-<script src="/back/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="/back/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <script src="/back/dist/js/adminlte.js?v=3.2.0"></script>
-<script src="/back/dist/js/demo.js"></script>
 <script src="/back/dist/js/pages/dashboard.js"></script>
 <script src="/back/plugins/sweetalert2/sweetalert2.min.js"></script>
-<script src="/back/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="/back/plugins/select2/js/select2.full.min.js"></script>
-<script src="/back/plugins/dropzone/min/dropzone.min.js"></script>
+
 <!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <!-- Alpine.js -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+<script>
+    // For Select2 4.0
+    $("#form-select-sm").select2({
+        theme: "bootstrap-5",
+        containerCssClass: "select2--small",
+        dropdownCssClass: "select2--small",
+    });
+
+    // For Select2 4.1
+    $("#form-select-sm").select2({
+        theme: "bootstrap-5",
+        selectionCssClass: "select2--small",
+        dropdownCssClass: "select2--small",
+    });
+</script>
 
 @if (Session::has('success'))
     <script>

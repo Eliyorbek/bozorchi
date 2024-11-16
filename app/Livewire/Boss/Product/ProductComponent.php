@@ -23,7 +23,7 @@ class ProductComponent extends MyComponent
 
 
 
-    public $name , $id,$status,$price,$description,$discount_price,$category_id,$brend_id,$count,$search;
+    public $name , $id,$status,$price,$description,$discount_price,$category_id,$brend_id,$count,$search,$sup_id;
 
     public $sale = 0,$sprice , $percentage=0;
 
@@ -52,8 +52,10 @@ class ProductComponent extends MyComponent
         $this->count=$product->count;
         $this->description=$product->description;
         $this->category_id=$product->category_id;
-        $this->brend_id=$product->brend->name;
+        $this->brend_id=$product->brend_id;
         $this->status=$product->status;
+        $this->sup_id=$product->sup_id;
+
     }
 
     public function showWindow($id){
@@ -68,6 +70,8 @@ class ProductComponent extends MyComponent
         $this->brend_id=$product->brend->name;
         $this->status=$product->status;
         $this->discount_price=$product->discount_price;
+        $this->sup_id=$product->sup->name;
+
     }
 
     public function statusEdit($id){
