@@ -28,6 +28,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/user/register' , 'register');
 });
 
+
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories' , 'allCategories');
     Route::post('/categories/{id}' , 'getCategory');
