@@ -95,7 +95,6 @@ class AdminComponent extends MyComponent
             ->orWhere('email','like','%'.$this->search.'%')->paginate(10);
             return view('livewire.admins.admin-component' , compact('users'));
         }else{
-            $users = User::where('role','!=',1)->paginate(10);
             return view('livewire.admins.admin-component' , compact('users'));
         }
 
