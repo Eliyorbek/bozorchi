@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Backend\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SupCategoryController;
@@ -36,7 +35,12 @@ Route::controller(CategoryController::class)->group(function () {
 Route::controller(SupCategoryController::class)->group(function () {
     Route::get('/sup-category' , 'allSupCategory');
 });
-//Route::controller(ProductController::class)->group(function () {});
+Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(function () {
+    Route::get('/products' , 'allProducts');
+    Route::get('/products/{id}' , 'ProductFiltrCategory');
+    Route::get('/products/sup-category/{id}' , 'ProductFiltrSupCategory');
+    Route::post('/products/{id}' , 'addToCart');
+});
 
 
 
