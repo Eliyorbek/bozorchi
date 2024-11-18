@@ -23,10 +23,11 @@
                     @if(isset($users))
                         @foreach($users as $user)
                             <tr>
-                                <td>{{$user->id}}</td>
+                                <td>{{++$num}}</td>
                                 <td>{{$user->name}}</td>
                                 <td style="text-transform: none">{{$user->email}}</td>
-                                <td style="text-transform: none">{{$user->role ==1 ? 'Boshliq' : 'Kuryer'}}</td>
+                                <td>{{$user->phone}}</td>
+                                <td>{{$user->car_number}}</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" wire:click="updateWindow({{$user->id}})"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-info btn-sm" wire:click="editPageOpen({{$user->id}})"><i class="fa fa-key"></i></button>

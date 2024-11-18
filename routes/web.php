@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrendController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ClientController;
+use App\Http\Controllers\Backend\MyProfileController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductIncomeController;
 use App\Http\Controllers\Backend\SupController;
@@ -49,7 +50,9 @@ Route::middleware('admin')->group(function(){
 //Supplier Page route
     Route::resource('/supplier' , SupplierController::class);
 //Product income page route
-    Route::resource('/product-income' , ProductIncomeController::class);
+
+    Route::get('/my-profile' , [MyProfileController::class,'index'])->name('my-profile');
+    Route::put('/my-profile/{id}' , [MyProfileController::class,'update'])->name('my-profile-update');
 });
 
 

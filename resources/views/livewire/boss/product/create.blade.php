@@ -4,7 +4,7 @@
         $brends = \App\Models\Brend::where('status', 'active')->get();
         $sups = \App\Models\SupCategory::where('status' , 'active')->get();
     @endphp
-    <div class="modalShow">
+    <div class="modalShow col-lg-6">
         <div class="card-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Yangi mahsulot qo'shish</h5>

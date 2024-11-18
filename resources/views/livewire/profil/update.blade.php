@@ -1,13 +1,22 @@
 <div>
-
-    <div class="modalShow">
+    <style>
+        .modalSho{
+            position: absolute;
+            z-index:10;
+            top: 100px;
+            left: 40%;
+            background-color: #fff;
+            border-radius: 4%;
+        }
+    </style>
+    <div class="modalSho col-3">
         <div class="card-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Kuryer ma'lumotlarni o'zgartirish</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Shaxsiy ma'lumotlarni o'zgartirish</h5>
                 <button type="button" class="btn-close" wire:click="close()" ></button>
             </div>
             <div class="modal-body">
-                <form action="{{route('add.update' , $id)}}" enctype="multipart/form-data" class="form" method="POST">
+                <form action="{{route('my-profile-update' , $id)}}" enctype="multipart/form-data" class="form" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -25,6 +34,10 @@
                     <div class="form group">
                         <label for="ema">Avtomobil raqam</label>
                         <input type="text" name="car_number" id="ema" wire:model="car_number" placeholder="Avtomibil raqamingizni kiriting" class="form-control">
+                    </div>
+                    <div class="form group">
+                        <label for="image">Rasm</label>
+                        <input type="file" name="image" id="image" wire:model="image" placeholder="Avtomibil raqamingizni kiriting" class="form-control">
                     </div>
                     <div class="form-group mt-2">
                         <button type="button" class="btn btn-secondary" wire:click="close()">Close</button>

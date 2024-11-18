@@ -30,7 +30,18 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone=$request->phone;
+        $user->car_number=$request->car_number;
+        $user->password = Hash::make($request->password);
+        $user->role=2;
+        if ($user->save()){
+            return redirect()->route('add.index')->with('success','Profile Updated Successfully');
+        }else{
+            return redirect()->route('add.index')->with('error','Something Went Wrong');
+        }
     }
 
     /**
@@ -52,9 +63,15 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone=$request->phone;
+        $user->car_number=$request->car_number;
+        $user->save();
+        return redirect()->route('add.index')->with('update','Profile Updated Successfully');
     }
 
     /**
