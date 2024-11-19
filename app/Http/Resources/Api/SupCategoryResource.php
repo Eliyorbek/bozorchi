@@ -17,7 +17,7 @@ class SupCategoryResource extends JsonResource
         return [
             'name'=>$this->name,
             'category'=>$this->category->name,
-            'image'=>'/storage/sup_img/'.$this->image,
+            'image'=>'https://meningbozorchim.uz/storage/sup_img/'.$this->image,
         ];
     }
 }

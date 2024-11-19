@@ -18,7 +18,7 @@ return new class extends Migration
             $table->json('count')->nullable();
             $table->json('price')->nullable();
             $table->json('total_sum')->nullable();
-            $table->string('status')->default('yetkazilmagan');
+            $table->string('status')->default('biriktirilmagan');
             $table->timestamps();
         });
     }

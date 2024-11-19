@@ -40,6 +40,7 @@ Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(fu
     Route::get('/products/{id}' , 'ProductFiltrCategory');
     Route::get('/products/sup-category/{id}' , 'ProductFiltrSupCategory');
     Route::post('/products/{id}' , 'addToCart');
+    Route::get('/add-to-cart' , 'getCart');
 });
 
 

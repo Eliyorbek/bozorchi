@@ -36,6 +36,7 @@ class CategoryController extends Controller
             return response()->json([
                 'success'=>true,
                 'data'=>[
+                    'id'=>$category->id,
                     'name'=>$category->name,
                     'sup-categories' => SupCategoryResource::collection($categories),
                     'image'=>'/storage/category_img/'.$category->image,

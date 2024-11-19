@@ -92,7 +92,7 @@ use Illuminate\Support\Facades\Auth;
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-shop"></i>
                 <p>
-                    Sotilgan Mahsulotlar
+                    Buyurtmalar
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
@@ -100,13 +100,13 @@ use Illuminate\Support\Facades\Auth;
                 <li class="nav-item">
                     <a href="./index3.html" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Sotilgan mahsulotlar</p>
+                        <p>Buyurtmalar</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="./index3.html" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Sotilgan mahsulotlar haqida</p>
+                        <p>Buyurmalar haqida</p>
                     </a>
                 </li>
             </ul>

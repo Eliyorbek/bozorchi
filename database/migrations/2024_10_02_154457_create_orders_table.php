@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('client_id');
-            $table->string('payment_method')->nullable();
             $table->string('payment_status')->default('tolanmagan')->nullable();
+            $table->string('phone');
+            $table->text('address');
             $table->bigInteger('total_sum')->nullable();
-            $table->string('status')->default('yetkazilmagan');
+            $table->float('delivery_price')->nullable();
+            $table->string('status')->default('biriktirilmagan');
             $table->timestamps();
         });
     }
