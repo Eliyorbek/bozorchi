@@ -25,17 +25,16 @@ class UserController extends Controller
         }
     }
 
-    public function register(UserRequest $request){
-        $client = new User();
-        $client->setClientId(env('GOOGLE_CLIENT_ID'));
-
+    public function register(Request $request)
+    {
         $idToken = $request->input('idToken');
 
         try {
+            $client = new \Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]); // Google Client-ni sozlash
             $payload = $client->verifyIdToken($idToken);
 
             if ($payload) {
-                $googleId = $payload['sub']; // Google user ID
+                $googleId = $payload['sub'];
                 $email = $payload['email'];
                 $name = $payload['name'];
                 $picture = $payload['picture'];
@@ -59,10 +58,10 @@ class UserController extends Controller
                     'user' => $user,
                 ], 200);
             } else {
-                return response()->json(['error' => 'Invalid ID token'], 400);
+                return response()->json(['error' => 'ID token hato'], 400);
             }
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Google sign-in failed', 'message' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Google orqali o\'tib bo\'madi', 'message' => $e->getMessage()], 500);
         }
     }
 

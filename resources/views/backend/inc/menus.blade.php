@@ -89,27 +89,12 @@ use Illuminate\Support\Facades\Auth;
 
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-shop"></i>
+            <a href="{{route('order.index')}}" class="nav-link">
+            <i class="nav-icon fas fa-shop"></i>
                 <p>
                     Buyurtmalar
-                    <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Buyurtmalar</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="./index3.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Buyurmalar haqida</p>
-                    </a>
-                </li>
-            </ul>
         </li>
         <li class="nav-item">
             <a href="{{route('delivery.index')}}" class="nav-link">

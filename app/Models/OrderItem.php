@@ -16,4 +16,13 @@ class OrderItem extends Model
         'price'=>'array',
         'total_sum'=>'array',
     ];
+
+   public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+   {
+       return $this->belongsTo(Product::class);
+   }
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
 }

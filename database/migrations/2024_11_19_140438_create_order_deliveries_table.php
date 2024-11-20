@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('order_id');
             $table->integer('courier_id');
             $table->float('delivery_price');
-            $table->string('status')->default('biriktirildi');
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }

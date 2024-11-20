@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\BrendController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ClientController;
 use App\Http\Controllers\Backend\MyProfileController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductIncomeController;
 use App\Http\Controllers\Backend\SupController;
@@ -53,6 +54,12 @@ Route::middleware('admin')->group(function(){
 
     Route::get('/my-profile' , [MyProfileController::class,'index'])->name('my-profile');
     Route::put('/my-profile/{id}' , [MyProfileController::class,'update'])->name('my-profile-update');
+
+
+    Route::controller(OrderController::class)->group(function(){
+        Route::get('/order' , 'index')->name('order.index');
+        Route::get('/order/{id}' , 'orderItem')->name('order-item');
+    });
 });
 
 

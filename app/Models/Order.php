@@ -10,5 +10,10 @@ class Order extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    public function client(){
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+
 
 }

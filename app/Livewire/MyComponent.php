@@ -21,6 +21,7 @@ class MyComponent extends Component
         $this->update= 0;
         $this->delete= 0;
         $this->view=0;
+        $this->map=0;
     }
     public function createOpen(){
         $this->create = 1;
@@ -40,4 +41,5 @@ class MyComponent extends Component
         $this->show=1;
         $this->delete=1;
     }
+
 }

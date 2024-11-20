@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('address');
             $table->bigInteger('total_sum')->nullable();
             $table->float('delivery_price')->nullable();
-            $table->string('status')->default('biriktirilmagan');
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

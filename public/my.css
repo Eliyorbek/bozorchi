@@ -7,15 +7,17 @@ table tr td{
 
 .modalShow{
     z-index:6 !important;
-    position: absolute;
-    left: 50%;
-    top: -50px;
-    transform: translateX(-50%);
+    position: fixed;
+    left: 35%;
+    top: 50%;
+    transform: translateY(-50%);
     background-color:white;
     width: 600px;
     padding: 5px;
     border-radius:20px;
 }
+
+
 @media (max-width: 676px) {
     .modalShow{
         width: 100% !important;

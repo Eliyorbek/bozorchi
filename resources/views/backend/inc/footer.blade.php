@@ -41,8 +41,6 @@
 
 <!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<!-- Alpine.js -->
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <script>
     // For Select2 4.0
@@ -72,6 +70,22 @@
             Toast.fire({
                 icon: 'success',
                 title: 'Muvofaqqiyatli qo\'shildi'
+            })
+        });
+    </script>
+@endif
+@if (Session::has('birik'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Buyurtma kuryerga biriktirildi !'
             })
         });
     </script>

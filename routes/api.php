@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\DistanceController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,14 @@ Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(fu
     Route::get('/products/sup-category/{id}' , 'ProductFiltrSupCategory');
     Route::post('/products/{id}' , 'addToCart');
     Route::get('/add-to-cart' , 'getCart');
+});
+
+Route::controller(OrderController::class)->group(function () {
+    Route::post('/order' , 'orderSave');
+});
+
+Route::controller(DistanceController::class)->group(function () {
+    Route::post('/delivery-price' , 'deliveryPrice');
 });
 
 
