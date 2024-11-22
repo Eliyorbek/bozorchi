@@ -1,6 +1,6 @@
 <div>
-    <div wire:ignore class="modalShow">
-        <div class="card-content">
+    <div wire:ignore class="modalShow row ">
+        <div class="card col-lg-12">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Mahsulot haqidagi ma'lumotlar</h5>
                 <a href="{{route('order-item' , $id)}}" type="button" class="btn-close"  ></a>

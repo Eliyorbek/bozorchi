@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class UserController extends Controller
 {
@@ -64,5 +66,40 @@ class UserController extends Controller
             return response()->json(['error' => 'Google orqali o\'tib bo\'madi', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->stateless()->user();
+            $googleId = $user->getId();
+            $googleName = $user->getName();
+            $googleEmail = $user->getEmail();
+            $existingUser = User::where('email', $googleEmail)->first();
+
+            if ($existingUser) {
+                Auth::login($existingUser);
+            } else {
+                $newUser = User::create([
+                    'name' => $googleName,
+                    'email' => $googleEmail,
+                    'google_id' => $googleId,
+                ]);
+                Auth::login($newUser);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message'=>'User qo\'shildi!',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Google orqali o\'tib bo\'madi'
+                ], 500);
+        }
+    }
+
+
 
 }

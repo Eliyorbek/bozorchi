@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductIncomeController;
 use App\Http\Controllers\Backend\SupController;
 use App\Http\Controllers\Backend\SupplierController;
+use App\Http\Controllers\Kuryer\KuryerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DeliveryController;
@@ -26,7 +27,7 @@ use App\Http\Controllers\Backend\DeliveryController;
 |
 */
 
-Route::middleware('admin')->group(function(){
+Route::middleware(['admin' , 'admin.check:1'])->group(function(){
         Route::get('/' , function(){
             $title = 'Dashboard';
             $subtitle ='Dashboard';
@@ -43,6 +44,10 @@ Route::middleware('admin')->group(function(){
 // Zakasni yetkazish
     Route::resource('/delivery' , DeliveryController::class);
 
+//    Yetkazilgan zakaslar
+    Route::controller(\App\Http\Controllers\Backend\DeliveredController::class)->group(function(){
+        Route::get('/delivered' , 'index')->name('delivered.index');
+    });
 //    Brend page route
     Route::resource('/brend' , BrendController::class);
     Route::resource('/category' , CategoryController  ::class);
@@ -62,15 +67,15 @@ Route::middleware('admin')->group(function(){
     });
 });
 
+Route::middleware(['admin', 'admin.check:2'])->group(function () {
+    Route::controller(KuryerController::class)->group(function(){
+        Route::get('/kuryer' , 'index')->name('kuryer.index');
+        Route::get('/kuryer/yetkazilganlar' , 'myZakas')->name('kuryer.zakas');
+    });
+});
 
 
 
-//Mobil dasturchi uchun routelar
-
-Route::resource('/klient' , UserController::class);
-
-
-//Mobil dasturchi uchun routelar
 
 
 

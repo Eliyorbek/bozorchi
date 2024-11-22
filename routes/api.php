@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DistanceController;
+use App\Http\Controllers\Api\KuryerController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -24,10 +25,15 @@ use App\Http\Controllers\Api\SupCategoryController;
 //});
 
 
+
 Route::controller(UserController::class)->group(function () {
-    Route::get('/user/{id}' , 'getUser');
-    Route::post('/user/register' , 'register');
+    Route::get('/user/{id}', 'getUser');
+    Route::post('/user/register', 'register');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
 });
+
+Route::get('kuryer/login' , [KuryerController::class, 'login']);
+
 
 
 Route::controller(CategoryController::class)->group(function () {

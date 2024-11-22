@@ -3,8 +3,8 @@
 
     {{--            view start--}}
     @if(isset($percentage) && $percentage==1)
-        <div class="modalShow">
-            <div class="card-content">
+        <div class="modalShow row">
+            <div class="card col-lg-12">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Mahsulotga chegirma narx belgilash</h5>
                     <button type="button" class="btn-close" wire:click="close()" ></button>

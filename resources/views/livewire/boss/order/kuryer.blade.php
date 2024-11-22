@@ -1,19 +1,6 @@
 <div>
-    <style>
-        .modalKuryer{
-            z-index:6 !important;
-            position: fixed;
-            left: 30%;
-            top: 30%;
-            transform: translateY(-50%);
-            background-color:white;
-            width: 800px;
-            padding: 5px;
-            border-radius:20px;
-        }
-    </style>
-    <div wire:ignore class="modalKuryer">
-        <div class="card-content">
+    <div wire:ignore class="modalShow row">
+        <div class="card col-lg-12">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Kuryerlar</h5>
                 <button type="button" class="btn-close"  wire:click="close()"></button>

@@ -1,6 +1,6 @@
 <div>
-    <div class="modalShow">
-        <div class="card-content">
+    <div class="modalShow row">
+        <div class="card col-lg-12">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Yetkazib beruvchini qo'shish</h5>
                 <button type="button" class="btn-close" wire:click="close()" ></button>

@@ -4,11 +4,11 @@
         @include('livewire.content-header')
         <div class="card  mt-2">
             <div>
-                <div class="card-header d-flex align-items-center justify-content-end" style="gap:10px; line-height: 20px;">
-                    <div class="search">
+                <div class="card-header row">
+                    <div class="col-lg-12">
                         <form action="">
-                            <div class="form-group d-flex" style="gap:10px;">
-                                <input type="search" wire:model.live="search"  name="" id="" style=" padding:6px; outline: none; height: 34px;margin-top: 14px; border-radius: 5px; width: 15rem;" placeholder="Search">
+                            <div class="form-group" >
+                                <input type="search" wire:model.live="search" class="form-control" name="" id=""  placeholder="Search">
                             </div>
                         </form>
                     </div>
@@ -16,13 +16,16 @@
             </div>
 
             @if($view==1)
-                @include('livewire.boss.sup-category.show')
-                @include('livewire.show')
-            @elseif($delete==1)
-                @include('livewire.delete-message')
+                @include('livewire.boss.delivery.show')
                 @include('livewire.show')
             @elseif($map==1)
                 @include('livewire.boss.delivery.location')
+                @include('livewire.show')
+            @elseif($update==1)
+                @include('livewire.boss.delivery.add-zakas')
+                @include('livewire.show')
+            @elseif($delete==1)
+                @include('livewire.boss.delivery.delete-message')
                 @include('livewire.show')
             @endif
 
@@ -42,6 +45,7 @@
                             <tr>
                                 <td>{{++$num}}</td>
                                 <td>{{$model->kuryer->name}}</td>
+                                <td>{{$model->kuryer->phone}}</td>
                                 <td>
                                     @foreach($items as $item)
                                         <span>{{$item->product->name}};</span>
@@ -50,10 +54,10 @@
                                 <td>{{$total}} so'm</td>
                                 <td style="text-transform: none"><button type="button"  class="btn btn-sm btn-{{$model->status==2?'success':'warning'}}">{{$model->status==1?'Olmadi':'Oldi'}}</button></td>
                                 <td>
-                                    <button type="button" class="btn  btn-info btn-sm" wire:click="showWindow({{$model->id}})">Buyurtma qo'shish</button>
+                                    <button type="button" class="btn  btn-info btn-sm" wire:click="updateWindow({{$model->id}})">Buyurtma qo'shish</button>
                                     <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
                                     <button type="button" class="btn  btn-success btn-sm" wire:click="openLocaltion({{$model->order_id}})"><i class="fa fa-location-arrow"></i></button>
-                                    <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-trash-alt"></i></button>
+                                    <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-close"></i></button>
                                 </td>
                             </tr>
                         @endforeach

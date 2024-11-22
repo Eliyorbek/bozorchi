@@ -4,11 +4,11 @@
         @include('livewire.content-header')
         <div class="card  mt-2">
             <div>
-                <div class="card-header d-flex align-items-center justify-content-end" style="gap:10px; line-height: 20px;">
-                    <div class="search">
+                <div class="card-header row">
+                    <div class="col-lg-12">
                         <form action="">
-                            <div class="form-group d-flex" style="gap:10px;">
-                                <input type="search" wire:model.live="search"  name="" id="" style=" padding:6px; outline: none; height: 34px;margin-top: 14px; border-radius: 5px; width: 15rem;" placeholder="Search">
+                            <div class="form-group" >
+                                <input type="search" wire:model.live="search" class="form-control" name="" id=""  placeholder="Search">
                             </div>
                         </form>
                     </div>

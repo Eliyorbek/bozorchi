@@ -3,8 +3,8 @@
     @php
         $categories = \App\Models\Category::where('status' , 'active')->get();
      @endphp
-        <div class="modalShow">
-            <div class="card-content">
+    <div class="modalShow row">
+        <div class="card col-lg-12">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Sup kategoriya qo'shish</h5>
                     <button type="button" class="btn-close" wire:click="close()" ></button>
@@ -13,11 +13,11 @@
                 <div class="modal-body">
                     @csrf
                         <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-lg-6">
                                 <label for="name" class="name">Nomi</label>
                                 <input type="text" id="name" name="name" class="form-control" wire:model="name" placeholder="Ism kiriting">
                             </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-lg-6">
                                 <label for="name" class="name">Kategoriya</label>
                                 <select name="category_id" id="" class="form-control">
                                     <option value="">Kategoriyani tanlang</option>

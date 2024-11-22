@@ -4,33 +4,27 @@ table tr th{
 table tr td{
     text-transform: capitalize;
 }
-
+iframe{
+    width: 100% !important;
+    height: 100% !important;
+}
 .modalShow{
     z-index:6 !important;
+    position: absolute;
+    left: 30%;
+    top: 5%;
+    width: 40%;
+}
+.modalKuryer{
+    z-index:6 !important;
     position: fixed;
-    left: 35%;
+    left: 30%;
     top: 50%;
     transform: translateY(-50%);
     background-color:white;
-    width: 600px;
+    width: 800px;
     padding: 5px;
     border-radius:20px;
-}
-
-
-@media (max-width: 676px) {
-    .modalShow{
-        width: 100% !important;
-        height: 100% !important;
-        top: 0;
-        left: 0;
-    }
-    .modalShow .row{
-        flex-direction: column;
-    }
-    .modalShow .row .form-group{
-        max-width: 100%;
-    }
 }
 
 

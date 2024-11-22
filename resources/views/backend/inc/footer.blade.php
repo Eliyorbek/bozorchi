@@ -7,7 +7,7 @@
 <footer class="main-footer">
     <strong> &copy; 2024 <a href="https://t.me/eliyorbek_tojimatov">Eliyorbek Tojimatov</a>.</strong>
     <div class="float-right d-none d-sm-inline-block">
-
+        <strong>Tel:<a href="+998905577074">(+998)90 557-70-74</a></strong>
     </div>
 </footer>
 

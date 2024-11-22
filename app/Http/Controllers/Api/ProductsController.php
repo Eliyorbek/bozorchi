@@ -68,7 +68,7 @@ class ProductsController extends Controller
 
         $product = Product::where('id', $id)->where('status', 'active')->first();
 
-        if (!$product) {
+        if ($product == null || $product->count == 0) {
             return response()->json([
                 'success' => false,
                 'message' => 'Mahsulot topilmadi.',

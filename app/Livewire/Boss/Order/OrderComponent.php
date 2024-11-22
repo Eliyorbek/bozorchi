@@ -36,9 +36,11 @@ class OrderComponent extends MyComponent
         $order = Order::find($id);
         $orderItems = ModelsOrderItem::where('order_id',$id)->get();
         foreach($orderItems as $orderItem){
-            $orderItem->delete();
+            $orderItem->status = 4;
+            $orderItem->save();
         }
-        $order->delete();
+        $order->status = 4;
+        $order->save();
         return redirect()->route('order.index')->with('delete','Product has been deleted');
     }
 
@@ -50,6 +52,7 @@ class OrderComponent extends MyComponent
 
     public function biriktir($order_id,$kuryer_id){
         $order = Order::find($order_id);
+        $orderItems = ModelsOrderItem::where('order_id',$order_id)->get();
         $user = User::where('id',$kuryer_id)->where('role' , 2)->first();
         $birik = OrderDelivery::create([
             'order_id' => $order_id,
@@ -60,6 +63,11 @@ class OrderComponent extends MyComponent
             $order->status = 1;
             $order->save();
             $user->status = 1;
+            $user->save();
+            foreach($orderItems as $orderItem){
+                $orderItem->status = 2;
+                $orderItem->save();
+            }
         }
         return redirect()->route('order.index')->with('birik','Order has been created');
     }

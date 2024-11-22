@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shop | Dashboard</title>
+    <title>Bozorchi.uz</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="icon" href="/bozor2.png" type="image/png">
     @livewireStyles
 {{--    <link rel="stylesheet" href="/back/plugins/fontawesome-free/css/all.min.css">--}}
 
@@ -74,8 +75,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
         <a href="{{route('admin')}}" class="brand-link">
-            <img src="/eltosoft.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Eliyorbek Tojimatov</span>
+            <img src="/bozor2.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity:1;">
+            <span class="brand-text font-weight-light">Bozorchi.uz</span>
         </a>
 
         <div class="sidebar mt-2">

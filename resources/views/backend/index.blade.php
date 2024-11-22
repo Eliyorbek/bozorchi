@@ -1,5 +1,15 @@
 @extends('backend.inc.app')
 @section('content')
+    @php
+    $orders = \App\Models\Order::whereIn('status',[0,1])->get();
+    $status2 = \App\Models\Order::where('status' , 2)->get();
+    $yetkazilganlar = \App\Models\Order::where('status' , 3)->get();
+     @endphp
+    <style>
+        a{
+            color: #000000;
+        }
+    </style>
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -23,11 +33,13 @@
                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-shop"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Jami buyurtmalar </span>
-                        <span class="info-box-number">
-                            10
+                        <a href="">
+                            <span class="info-box-text">Jami buyurtmalar </span>
+                            <span class="info-box-number">
+                            {{count($orders)}}
                   <small>ta</small>
                 </span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -39,8 +51,10 @@
                     <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-people-carry-box"></i></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Yeg'ilayotgan buyurtmalar</span>
-                        <span class="info-box-number">41,410 <small>ta</small></span>
+                        <a href="">
+                            <span class="info-box-text">Jarayondagilar</span>
+                            <span class="info-box-number">{{count($status2)}}<small> ta</small></span>
+                        </a>
 
                     </div>
                     <!-- /.info-box-content -->
@@ -53,8 +67,10 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-alt"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Yetkazila</span>
-                        <span class="info-box-number">760</span>
+                        <a href="">
+                            <span class="info-box-text">Yetkazilganlar</span>
+                            <span class="info-box-number">{{count($yetkazilganlar)}} <small> ta</small></span>
+                        </a>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

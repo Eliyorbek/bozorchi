@@ -33,7 +33,12 @@ class AuthenticatedSessionController extends Controller
                 $request->authenticate();
                 $request->session()->regenerate();
                 return redirect()->intended(RouteServiceProvider::HOME);
-            }else{
+            }elseif ($user->email == $request->email && Hash::check($request->password, $user->password) && $user->role == 2){
+                $request->authenticate();
+                $request->session()->regenerate();
+                return redirect()->route('kuryer.index');
+            }
+            else{
                 return redirect()->route('login')->with('error', 'error');
             }
         } else {

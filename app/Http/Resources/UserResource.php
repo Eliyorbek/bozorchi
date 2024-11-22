@@ -14,12 +14,22 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-            return [
-                'id'=>$this->id,
-                'name'=>$this->name,
-                'email'=>$this->email,
-                'phone'=>$this->phone,
-                'image'=>'https://meningbozorchim.uz/storage/user_img/'.$this->image,
-            ];
+            if ($this->image !=null){
+                return [
+                    'id'=>$this->id,
+                    'name'=>$this->name,
+                    'email'=>$this->email,
+                    'phone'=>$this->phone,
+                    'image'=>'https://meningbozorchim.uz/storage/user_img/'.$this->image,
+                ];
+            }else{
+                return [
+                    'id'=>$this->id,
+                    'name'=>$this->name,
+                    'email'=>$this->email,
+                    'phone'=>$this->phone,
+                ];
+            }
+
         }
 }

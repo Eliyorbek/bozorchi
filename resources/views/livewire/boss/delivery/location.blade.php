@@ -12,8 +12,8 @@
             border-radius:20px;
         }
     </style>
-    <div class="modalMap">
-        <div class="card-content">
+    <div class="modalShow row">
+        <div class="card col-lg-12">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Buyurtma address</h5>
                 <button type="button" class="btn-close" wire:click="close()" ></button>

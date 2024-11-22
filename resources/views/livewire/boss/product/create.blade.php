@@ -4,8 +4,8 @@
         $brends = \App\Models\Brend::where('status', 'active')->get();
         $sups = \App\Models\SupCategory::where('status' , 'active')->get();
     @endphp
-    <div class="modalShow col-lg-6">
-        <div class="card-content">
+    <div class="modalShow row">
+        <div class="card col-lg-12">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Yangi mahsulot qo'shish</h5>
                 <button type="button" class="btn-close" wire:click="close()" ></button>
@@ -14,21 +14,21 @@
                 <form action="{{route('product.store')}}" class="form"  method="POST" enctype="multipart/form-data">
                     @csrf
                    <div class="row">
-                       <div class="form-group col-6">
+                       <div class="form-group col-lg-6">
                            <label for="name" class="name">Nomi</label>
                            <input type="text" id="name" name="name" class="form-control" wire:model="name" placeholder="Mahsulot nomini kiriting">
                        </div>
-                       <div class="form-group col-6">
+                       <div class="form-group col-lg-6">
                            <label for="price">Narxi</label>
                            <input type="number" name="price" id="price" wire:model="price" placeholder="Mahsulot narxini kiriting" class="form-control">
                        </div>
                    </div>
                      <div class="row">
-                         <div class="form-group col-6">
+                         <div class="form-group col-lg-6">
                             <label for="pric">Miqdori</label>
                             <input type="number" name="count" id="pric" wire:model="count" placeholder="Mahsulotning miqdorini kiriting" class="form-control">
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-lg-6">
                                 <label for="pri">O'lchov turini</label>
                                 <select class="form-select" name="brend_id" id="basic-usage" data-placeholder="Choose one thing">
                                     <option>O'lchov turini tanlang</option>
@@ -41,7 +41,7 @@
                         </div>
                      </div>
                     <div class="row">
-                       <div class="form-group col-6">
+                       <div class="form-group col-lg-6">
                            <label for="pri">Kategoriyasi</label>
                            <select class="form-select" id="basic-usage" name="category_id" wire:model="category" data-placeholder="Choose one thing">
                            <option value="">Kategoriyani tanlang</option>
@@ -52,7 +52,7 @@
                                @endif
                            </select>
                        </div>
-                       <div class="form-group col-6">
+                       <div class="form-group col-lg-6">
                            <label for="pri">Sup kategoriyasi</label>
                            <select class="form-select" id="basic-usage" name="sup_id" wire:model="sup_id" data-placeholder="Choose one thing">
                                <option value="">Kategoriyaqa qarashligini tanlang</option>
