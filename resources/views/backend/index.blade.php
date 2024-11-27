@@ -1,9 +1,10 @@
 @extends('backend.inc.app')
 @section('content')
     @php
-    $orders = \App\Models\Order::whereIn('status',[0,1])->get();
-    $status2 = \App\Models\Order::where('status' , 2)->get();
+    $orders = \App\Models\Order::where('status',0)->get();
+    $status2 = \App\Models\Order::whereIn('status' , [1,2])->get();
     $yetkazilganlar = \App\Models\Order::where('status' , 3)->get();
+    $clients = \App\Models\User::where('role' , 3)->get();
      @endphp
     <style>
         a{
@@ -33,7 +34,7 @@
                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-shop"></i></span>
 
                     <div class="info-box-content">
-                        <a href="">
+                        <a href="{{route('order.index')}}">
                             <span class="info-box-text">Jami buyurtmalar </span>
                             <span class="info-box-number">
                             {{count($orders)}}
@@ -51,7 +52,7 @@
                     <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-people-carry-box"></i></i></span>
 
                     <div class="info-box-content">
-                        <a href="">
+                        <a href="{{route('delivery.index')}}">
                             <span class="info-box-text">Jarayondagilar</span>
                             <span class="info-box-number">{{count($status2)}}<small> ta</small></span>
                         </a>
@@ -67,7 +68,7 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-alt"></i></span>
 
                     <div class="info-box-content">
-                        <a href="">
+                        <a href="{{route('delivered.index')}}">
                             <span class="info-box-text">Yetkazilganlar</span>
                             <span class="info-box-number">{{count($yetkazilganlar)}} <small> ta</small></span>
                         </a>
@@ -82,8 +83,8 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">New Members</span>
-                        <span class="info-box-number">2,000</span>
+                        <span class="info-box-text">Foydalanuvchilar</span>
+                        <span class="info-box-number">{{count($clients)}} <small> ta</small></span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

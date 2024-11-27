@@ -144,5 +144,4 @@ abstract class Component
 
         return $this;
     }
-
 }

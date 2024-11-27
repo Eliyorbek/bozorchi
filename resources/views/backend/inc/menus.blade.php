@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('banner.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-images"></i>
+                    <p>Bannerlar</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('add.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-user-shield"></i>
                     <p>Kuryerlar</p>
@@ -58,6 +64,12 @@ use Illuminate\Support\Facades\Auth;
                 <a href="{{route('delivered.index')}}" class="nav-link">
                     <i class="nav-icon fa-solid fa-truck"></i>
                     <p>Yetkazilgan buyurtmalar</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('salary.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-money-bill-wave-alt"></i>
+                    <p>Kuryerlarga pul berish</p>
                 </a>
             </li>
         @endif

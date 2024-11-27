@@ -9,13 +9,15 @@ use App\Http\Controllers\Backend\MyProfileController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductIncomeController;
+use App\Http\Controllers\Backend\SalaryController;
 use App\Http\Controllers\Backend\SupController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Kuryer\KuryerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DeliveryController;
-
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Backend\BannerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,7 +67,19 @@ Route::middleware(['admin' , 'admin.check:1'])->group(function(){
         Route::get('/order' , 'index')->name('order.index');
         Route::get('/order/{id}' , 'orderItem')->name('order-item');
     });
+
+    Route::resource('/salary' , SalaryController::class);
+
+//    Route banner
+    Route::controller(BannerController::class)->group(function(){
+       Route::get('/banner' , 'index')->name('banner.index');
+       Route::post('/banner' , 'store')->name('banner.store');
+       Route::put('/banner/{id}' , 'update')->name('banner.update');
+    });
+
 });
+
+
 
 Route::middleware(['admin', 'admin.check:2'])->group(function () {
     Route::controller(KuryerController::class)->group(function(){
@@ -78,8 +92,8 @@ Route::middleware(['admin', 'admin.check:2'])->group(function () {
 
 
 
-
-
+Route::get('/auth/google', [UserController::class , 'googleAuth'])->name('auth.google');
+Route::get('/auth/google/callback', [UserController::class , 'handleGoogleCallback'])->name('auth.google.callback');
 
 
 

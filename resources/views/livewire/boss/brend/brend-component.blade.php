@@ -31,7 +31,7 @@
                     @endif
                     </tbody>
                 </table>
-                @if(isset($users))
+                @if(isset($models))
                     {{$models->links()}}
                 @endif
             </div>

@@ -27,44 +27,9 @@ class UserController extends Controller
         }
     }
 
-    public function register(Request $request)
+    public function googleAuth()
     {
-        $idToken = $request->input('idToken');
-
-        try {
-            $client = new \Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]); // Google Client-ni sozlash
-            $payload = $client->verifyIdToken($idToken);
-
-            if ($payload) {
-                $googleId = $payload['sub'];
-                $email = $payload['email'];
-                $name = $payload['name'];
-                $picture = $payload['picture'];
-
-                $user = User::where('email', $email)->first();
-
-                if (!$user) {
-                    $user = User::create([
-                        'name' => $name,
-                        'email' => $email,
-                        'google_id' => $googleId,
-                        'profile_picture' => $picture,
-                    ]);
-                }
-
-                Auth::login($user);
-
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Foydalanuvchi muvaffaqiyatli tizimga kirdi',
-                    'user' => $user,
-                ], 200);
-            } else {
-                return response()->json(['error' => 'ID token hato'], 400);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Google orqali o\'tib bo\'madi', 'message' => $e->getMessage()], 500);
-        }
+       return  Socialite::driver('google')->redirect();
     }
 
     public function handleGoogleCallback()
@@ -75,9 +40,13 @@ class UserController extends Controller
             $googleName = $user->getName();
             $googleEmail = $user->getEmail();
             $existingUser = User::where('email', $googleEmail)->first();
-
-            if ($existingUser) {
+            if ($existingUser!=null) {
                 Auth::login($existingUser);
+                return response()->json([
+                    'success' => true,
+                    'message'=>'User mavjud!',
+                    'data'=>new UserResource($existingUser)
+                ]);
             } else {
                 $newUser = User::create([
                     'name' => $googleName,
@@ -85,12 +54,12 @@ class UserController extends Controller
                     'google_id' => $googleId,
                 ]);
                 Auth::login($newUser);
+                return response()->json([
+                    'success' => true,
+                    'message'=>'User qo\'shildi!',
+                    'data'=>new UserResource($newUser)
+                ]);
             }
-
-            return response()->json([
-                'success' => true,
-                'message'=>'User qo\'shildi!',
-            ]);
         } catch (\Exception $e) {
             return response()->json(
                 [

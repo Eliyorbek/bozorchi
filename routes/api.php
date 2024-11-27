@@ -5,9 +5,10 @@ use App\Http\Controllers\Api\DistanceController;
 use App\Http\Controllers\Api\KuryerController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SupCategoryController;
+use Illuminate\Session\Middleware\StartSession;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,15 +27,18 @@ use App\Http\Controllers\Api\SupCategoryController;
 
 
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('/user/{id}', 'getUser');
-    Route::post('/user/register', 'register');
-    Route::get('auth/google/callback', 'handleGoogleCallback');
+
+
+Route::middleware(['api', StartSession::class])->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/user/{id}', 'getUser');
+        Route::get('/auth/google', 'redirect');
+        Route::get('/auth/google/callback', 'handleGoogleCallback');
+    });
 });
 
+
 Route::get('kuryer/login' , [KuryerController::class, 'login']);
-
-
 
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories' , 'allCategories');
@@ -58,6 +62,8 @@ Route::controller(OrderController::class)->group(function () {
 Route::controller(DistanceController::class)->group(function () {
     Route::post('/delivery-price' , 'deliveryPrice');
 });
+
+Route::post('/search' , [SearchController::class, 'search']);
 
 
 

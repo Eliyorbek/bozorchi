@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bozorchi.uz</title>
-
+    <link rel="stylesheet" href="/bozorchi1.jpg" type="image">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     @livewireStyles
     {{--    <link rel="stylesheet" href="/back/plugins/fontawesome-free/css/all.min.css">--}}
@@ -72,7 +72,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
         <a  class="brand-link">
-            <img src="/bozor2.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity:1;">
+            <img src="/bozorchi1.jpg" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity:1;">
             <span class="brand-text font-weight-light">Bozorchi.uz</span>
         </a>
 

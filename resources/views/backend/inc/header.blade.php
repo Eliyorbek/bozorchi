@@ -6,7 +6,7 @@
     <title>Bozorchi.uz</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="icon" href="/bozor2.png" type="image/png">
+    <link rel="icon" href="/bozorchi1.jpg" type="image/png">
     @livewireStyles
 {{--    <link rel="stylesheet" href="/back/plugins/fontawesome-free/css/all.min.css">--}}
 
@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/my.css">
     <link rel="stylesheet" href="/back/dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition  sidebar-mini layout-fixed ">
+<body class="hold-transition  sidebar-mini layout-fixed sidebar-collapse">
 <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-dark">
 
@@ -75,7 +75,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
         <a href="{{route('admin')}}" class="brand-link">
-            <img src="/bozor2.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity:1;">
+            <img src="/bozorchi1.jpg" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity:1;">
             <span class="brand-text font-weight-light">Bozorchi.uz</span>
         </a>
 

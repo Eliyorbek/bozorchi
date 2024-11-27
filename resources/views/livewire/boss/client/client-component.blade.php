@@ -55,8 +55,8 @@
                     @endif
                     </tbody>
                 </table>
-                @if(isset($users))
-                    {{$users->links()}}
+                @if(isset($models))
+                    {{$models->links()}}
                 @endif
             </div>
         </div>

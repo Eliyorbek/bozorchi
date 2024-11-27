@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/" style="font-size: 30px;font-weight: bold;">
-                    <img src="/bozor1.png" width="150px" alt="">
+                    <img src="/bozorchi.png" width="150px" alt="">
                 </a>
             </div>
 

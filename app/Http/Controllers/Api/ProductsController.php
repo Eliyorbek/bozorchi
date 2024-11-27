@@ -116,18 +116,25 @@ class ProductsController extends Controller
 
     public function getCart()
     {
-        $cart = AddToCard::where('user_id', 7)->get();
-        if ($cart->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Mahsulot topilmadi.',
-            ]);
-        }else{
-            return response()->json([
-                'success' => true,
-                'data'=>AddToCartResource::collection($cart),
-            ]);
-        }
+       if (Auth::check()) {
+           $cart = AddToCard::where('user_id', Auth::user()->id)->get();
+           if ($cart->isEmpty()) {
+               return response()->json([
+                   'success' => false,
+                   'message' => 'Mahsulot topilmadi.',
+               ]);
+           }else{
+               return response()->json([
+                   'success' => true,
+                   'data'=>AddToCartResource::collection($cart),
+               ]);
+           }
+       }else{
+           return response()->json([
+               'success' => false,
+               'message'=>'Bunday foydalanuvchi tizimda mavjud emas!'
+           ]);
+       }
     }
 
 
