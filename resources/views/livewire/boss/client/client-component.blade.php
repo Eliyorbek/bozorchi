@@ -2,7 +2,7 @@
     <div class="p-4">
 
         @include('livewire.content-header')
-        <div class="card  mt-2">
+        <div class="card card-outline card-primary mt-2">
             <div>
                 <div class="card-header d-flex align-items-center justify-content-end" style="gap:10px; line-height: 20px;">
 

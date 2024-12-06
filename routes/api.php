@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DistanceController;
 use App\Http\Controllers\Api\KuryerController;
+use App\Http\Controllers\Api\MyOrderController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SearchController;
@@ -64,6 +66,8 @@ Route::controller(DistanceController::class)->group(function () {
 });
 
 Route::post('/search' , [SearchController::class, 'search']);
-
+Route::get('/banner' , [BannerController::class , 'index']);
+Route::get('/banner/action-url' , [BannerController::class , 'bannerOne']);
+Route::get('/my-order' , [MyOrderController::class , 'myOrder']);
 
 

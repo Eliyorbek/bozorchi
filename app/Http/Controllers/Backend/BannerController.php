@@ -74,7 +74,7 @@ class BannerController extends Controller
                     unlink('storage/banner_img/'.$banner->image);
                 }
                 $request->file('image')->storeAs('public/banner_img' , $imgName);
-            }elsa{
+            }else{
                 $imgName = $banner->image;
             }
             $banner->update([
@@ -85,7 +85,7 @@ class BannerController extends Controller
             ]);
             return redirect()->back()->with('update' , 'update');
         }else{
-            return redirect()->back()->with('validate', 'validate');
+            return redirect()->back()->with('validate', 'asdfasfads');
         }
     }
 

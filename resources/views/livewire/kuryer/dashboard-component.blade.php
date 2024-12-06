@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="card  mt-2">
+        <div class="card card-outline card-primary  mt-2">
             <div>
                 <div class="card-header row">
                     <div class="col-lg-12">
@@ -57,7 +57,8 @@
                                 }
                             @endphp
                             <tr>
-                                 <td>{{$model->kuryer->name}}</td>, jh.
+                                <td>{{++$num}}</td>
+                                 <td>{{$model->kuryer->name}}</td>
                                 <td>{{$model->order->client->phone}}</td>
                                 <td>{{$model->delivery_price}} so'm</td>
                                 <td>{{$total + $model->delivery_price}} so'm</td>

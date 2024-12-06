@@ -20,11 +20,14 @@ class MyProfileController extends Controller
         $user->car_number=$request->car_number;
         if ($request->hasFile('image')) {
             $imgName = md5(rand(111,9999).microtime()).'.'.$request->file('image')->extension();
+            
             if (file_exists(public_path('storage/user_img/'.$user->image))) {
                 unlink(public_path('storage/user_img/'.$user->image));
-                $user->image->delete();
             }
             $request->file('image')->storeAs('public/user_img' , $imgName);
+            $user->image = $imgName;
+        }else{
+            $user->image = $user->image;
         }
         $user->save();
         return redirect()->route('my-profile')->with('update','Profile Updated Successfully');

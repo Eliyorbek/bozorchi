@@ -15,7 +15,7 @@ class BannerComponent extends MyComponent
         3=>'tahrirlash'
     ];
 
-    public $status,$endDaate,$today,$day,$isExpired , $image,$start_date,$end_date,$slug,$id;
+    public $status,$endDaate,$today,$day,$isExpired , $image,$start_date,$end_date,$slug,$id,$search;
 
     public function mount(){
         $models = Banner::all();
@@ -37,10 +37,30 @@ class BannerComponent extends MyComponent
         $this->start_date = $banner->start_date;
         $this->slug = $banner->slug;
     }
+
+    public function deleteWin($id){
+        $this->id = $id;
+        $this->deleteOpen();
+    }
+
+    public function deleteOne($id)
+    {
+        $banner = Banner::find($id);
+        if (file_exists(public_path('storage/banner_img/'.$banner->image))) {
+            unlink(public_path('storage/banner_img/'.$banner->image));
+        }
+        $banner->delete();
+        $this->close();
+        session()->flash('message', 'Banner muvaffaqiyatli o‘chirildi!');
+        return $this->render();
+    }
     public function render()
     {
-        $models = Banner::paginate(10);
-
+        if ($this->search != null) {
+            $models = Banner::where('slug' , 'like' , '%' . $this->search . '%')->paginate(10);
+        }else{
+            $models = Banner::paginate(10);
+        }
         return view('livewire.boss.banner.banner-component' , compact('models'));
     }
 }

@@ -2,7 +2,7 @@
     <div class="p-4">
 
         @include('livewire.content-header')
-        <div class="card  mt-2">
+        <div class="card card-outline card-primary mt-2">
             @include('livewire.card-header')
                 @if(isset($create) && $create==1)
                     @include('livewire.admins.create')

@@ -40,7 +40,7 @@
                             $total_sum+=($order->order->total_sum / 100) * 7;
                         }
                          @endphp
-                    <div class="card card collapsed-card">
+                    <div class="card card-outline card-primary card collapsed-card">
                         <div class="card-header">
                            <table class="table table-bordered">
                                @include('livewire.thead')
@@ -85,7 +85,7 @@
                                             </td>
                                             <td>{{$order->delivery_price}} so'm</td>
                                             <td>{{$order->order->total_sum}} so'm</td>
-                                            <td><button type="button" class="btn btn-success btn-sm"><i class="fa fa-dollar-sign"></i></button></td>
+                                            <td><button type="button" wire:click="oneSalary({{$order}})" class="btn btn-success btn-sm"><i class="fa fa-dollar-sign"></i></button></td>
                                         </tr>
                                     @endforeach
                                 @endif

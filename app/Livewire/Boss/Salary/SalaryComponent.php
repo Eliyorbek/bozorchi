@@ -18,6 +18,10 @@ class SalaryComponent extends MyComponent
         2=>'yetkazish narx',
         3=>'ish haqi',
     ];
+
+    public function oneSalary($order){
+        dd($order);
+    }
     public function render()
     {
         $users = User::where('role' , 2)->paginate(10);

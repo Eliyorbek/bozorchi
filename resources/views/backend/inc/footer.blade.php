@@ -32,9 +32,9 @@
 
 <script src="/back/plugins/chart.js/Chart.min.js"></script>
 <script src="/back/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="/back/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <script src="/back/plugins/moment/moment.min.js"></script>
 <script src="/back/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
 <script src="/back/dist/js/adminlte.js?v=3.2.0"></script>
 <script src="/back/dist/js/pages/dashboard.js"></script>
 <script src="/back/plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -50,8 +50,6 @@
 <script src="/back/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/back/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/back/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<!-- AdminLTE App -->
-<!-- Toastr JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>

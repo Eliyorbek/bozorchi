@@ -3,7 +3,7 @@
     <div class="p-4">
 
         @include('livewire.content-header')
-        <div class="card  mt-2">
+        <div class="card card-outline card-primary mt-2">
             @include('livewire.card-header')
             @if(isset($create) && $create==1)
                 @include('livewire.boss.banner.create')
@@ -27,7 +27,7 @@
                             <tr>
                                 <td>{{++$num}}</td>
                                 <td><img src="/storage/banner_img/{{$model->image}}" style="width: 200px;" class="img-thumbnail" alt=""></td>
-                                <td style="text-transform: none"><button type="button"  class="btn btn-sm btn-{{$day==0?'danger':'success'}}">{{ $isExpired ? 'Muddat tugagan' : 'Muddat hali tugamagan' }}</button></td>
+                                <td style="text-transform: none"><button type="button"  class="btn btn-sm btn-{{$isExpired?'danger':'success'}}">{{ $isExpired ? 'Muddat tugagan' : 'Muddat hali tugamagan' }}</button></td>
                                 <td>
                                     <button type="button" class="btn  btn-warning btn-sm" wire:click="updateWindow({{$model->id}})"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-trash-alt"></i></button>

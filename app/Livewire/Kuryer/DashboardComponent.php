@@ -59,8 +59,8 @@ class DashboardComponent extends MyComponent
     public function deleteOne($id){
         $this->delivery = OrderDelivery::find($id);
         $this->order = Order::where('id',$this->delivery->order_id)->first();
-        $this->delivery->status = 4;
-        $this->order->status = 4;
+        $this->delivery->status = 5;
+        $this->order->status = 5;
         User::find($this->delivery->courier_id)->update([
             'status'=>0,
         ]);

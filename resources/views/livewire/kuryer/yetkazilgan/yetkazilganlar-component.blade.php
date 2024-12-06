@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="card  mt-2">
+        <div class="card card-outline card-primary mt-2">
             <div>
                 <div class="card-header row">
                     <div class="col-lg-12">

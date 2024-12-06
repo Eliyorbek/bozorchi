@@ -94,6 +94,8 @@
         </div>
     </div>
 
+    @livewire('chart.chart-component')
+
 
 @endsection
 

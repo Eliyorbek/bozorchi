@@ -21,17 +21,15 @@ class BannerRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules =  [
-            'image' => 'required|mimes:jpeg,png,jpg,svg',
+        $rules = [
+            'image' => 'nullable|mimes:jpeg,png,jpg,svg',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'slug'=>'required'
+            'slug' => 'required',
         ];
-
-        if ($this->isMethod('post')){
-            $rules['image'] = 'required|mimes:jpeg,png,jpg,svg'. $rules['image'];
+        if ($this->isMethod('post')) {
+            $rules['image'] = 'required|mimes:jpeg,png,jpg,svg';
         }
-
         return $rules;
     }
 }
