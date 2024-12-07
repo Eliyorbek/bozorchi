@@ -3,6 +3,7 @@
 namespace App\Livewire\Boss\Salary;
 
 use App\Livewire\MyComponent;
+use App\Models\Order;
 use App\Models\OrderDelivery;
 use App\Models\User;
 use Livewire\Component;
@@ -19,8 +20,23 @@ class SalaryComponent extends MyComponent
         3=>'ish haqi',
     ];
 
-    public function oneSalary($order){
-        dd($order);
+    public $order_delivery , $order;
+    public function oneSalary($id){
+        $model = OrderDelivery::find($id);
+        $order = Order::find($model->order_id);
+        $model->update(['status' => 4]);
+        $order->update(['status' => 4]);
+        session()->flash('price' ,'success');
+        return redirect()->route('salary.index');
+    }
+
+    public function allOrder($id){
+        foreach(OrderDelivery::where('courier_id',$id)->get() as $delivery){
+            $delivery->update(['status' => 4]);
+            Order::find($delivery->order_id)->update(['status' => 4]);
+        }
+        session()->flash('price' ,'success');
+        return redirect()->route('salary.index');
     }
     public function render()
     {

@@ -14,8 +14,7 @@ use function Sodium\add;
 class OrderController extends Controller
 {
     public function orderSave(Request $request){
-        if (Auth::check()) {
-            $addToCart = AddToCard::where('user_id',5)->get();
+            $addToCart = AddToCard::where('user_id',$request->user_id)->get();
             if ($addToCart->isEmpty()){
                 return response()->json([
                     'status'=>false,
@@ -23,7 +22,7 @@ class OrderController extends Controller
                 ]);
             }else{
                 $order = Order::create([
-                    'client_id' => 5,
+                    'client_id' => $request->user_id,
                     'phone'=>$request->phone,
                     'address'=>$request->address,
                     'delivery_price'=>$request->delivery_price,
@@ -52,12 +51,5 @@ class OrderController extends Controller
                     ]]);
                 }
             }
-        }else{
-            return response()->json([
-                'status'=>false,
-                'message'=>'User ro\'yhatdan o\'tmagan!',
-            ]);
-        }
-
     }
 }

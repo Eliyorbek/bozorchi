@@ -37,6 +37,7 @@ class BannerController extends Controller
                 'start_date'=>$request->start_date,
                 'end_date'=>$request->end_date,
                 'slug'=>$request->slug,
+                'type'=>$request->type,
             ]);
             $request->file('image')->storeAs('public/banner_img' , $imgName);
             return redirect()->back()->with('success' , 'success');
@@ -82,6 +83,7 @@ class BannerController extends Controller
                 'start_date'=>$request->start_date,
                 'end_date'=>$request->end_date,
                 'slug'=>$request->slug,
+                'type'=>$request->type,
             ]);
             return redirect()->back()->with('update' , 'update');
         }else{

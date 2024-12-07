@@ -33,12 +33,13 @@ use Illuminate\Session\Middleware\StartSession;
 
 Route::middleware(['api', StartSession::class])->group(function () {
     Route::controller(UserController::class)->group(function () {
-        Route::get('/user/{id}', 'getUser');
-        Route::get('/auth/google', 'redirect');
+        Route::get('/user', 'getUser');
+        Route::get('/auth/google', 'googleAuth');
         Route::get('/auth/google/callback', 'handleGoogleCallback');
     });
 });
 
+Route::get('/user/{id}' , [UserController::class , 'getUser']);
 
 Route::get('kuryer/login' , [KuryerController::class, 'login']);
 
@@ -53,8 +54,9 @@ Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(fu
     Route::get('/products' , 'allProducts');
     Route::get('/products/{id}' , 'ProductFiltrCategory');
     Route::get('/products/sup-category/{id}' , 'ProductFiltrSupCategory');
-    Route::post('/products/{id}' , 'addToCart');
-    Route::get('/add-to-cart' , 'getCart');
+    Route::post('/add-to-cart' , 'addToCart');
+    Route::post('/reduce-cart' , 'reduceCard');
+    Route::get('/allAddToCard/{id}' , 'getCart');
 });
 
 Route::controller(OrderController::class)->group(function () {
@@ -68,6 +70,6 @@ Route::controller(DistanceController::class)->group(function () {
 Route::post('/search' , [SearchController::class, 'search']);
 Route::get('/banner' , [BannerController::class , 'index']);
 Route::get('/banner/action-url' , [BannerController::class , 'bannerOne']);
-Route::get('/my-order' , [MyOrderController::class , 'myOrder']);
+Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
 
 

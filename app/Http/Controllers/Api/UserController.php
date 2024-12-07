@@ -15,7 +15,7 @@ use Laravel\Socialite\Facades\Socialite;
 class UserController extends Controller
 {
     public function getUser($id){
-        $user = User::where('id',$id)->where('role' , 3)->first();
+        $user = User::find($id);
         if (!$user){
             return response()->json([
                 'message' => 'User topilmadi'
@@ -35,37 +35,27 @@ class UserController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $user = Socialite::driver('google')->stateless()->user();
-            $googleId = $user->getId();
-            $googleName = $user->getName();
-            $googleEmail = $user->getEmail();
-            $existingUser = User::where('email', $googleEmail)->first();
-            if ($existingUser!=null) {
-                Auth::login($existingUser);
-                return response()->json([
-                    'success' => true,
-                    'message'=>'User mavjud!',
-                    'data'=>new UserResource($existingUser)
-                ]);
-            } else {
-                $newUser = User::create([
-                    'name' => $googleName,
-                    'email' => $googleEmail,
-                    'google_id' => $googleId,
-                ]);
-                Auth::login($newUser);
-                return response()->json([
-                    'success' => true,
-                    'message'=>'User qo\'shildi!',
-                    'data'=>new UserResource($newUser)
-                ]);
-            }
-        } catch (\Exception $e) {
-            return response()->json(
+            $googleUser = Socialite::driver('google')->stateless()->user();
+
+            // Foydalanuvchini bazaga tekshirish yoki yaratish
+            $user = User::updateOrCreate(
+                ['email' => $googleUser->email],
                 [
-                    'success' => false,
-                    'message' => 'Google orqali o\'tib bo\'madi'
-                ], 500);
+                    'name' => $googleUser->name,
+                    'google_id' => $googleUser->id,
+                    'avatar' => $googleUser->avatar,
+                ]
+            );
+
+            // Sanctum token yaratish
+            $token = $user->createToken('auth-token')->plainTextToken;
+
+            return response()->json([
+                'token' => $token,
+                'user' => $user,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Google login failed'], 500);
         }
     }
 

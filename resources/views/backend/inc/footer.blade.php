@@ -84,6 +84,22 @@
         });
     });
 </script>
+@if (Session::has('price'))
+    <script>
+        $(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Pul to\'landi'
+            })
+        });
+    </script>
+@endif
 @if (Session::has('success'))
     <script>
         $(function() {

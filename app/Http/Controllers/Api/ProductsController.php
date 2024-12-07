@@ -57,16 +57,10 @@ class ProductsController extends Controller
     }
 
     // Add product to cart
-    public function addToCart(Request $request, $id)
+    public function addToCart(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Foydalanuvchi tizimga kirgan emas.',
-            ]);
-        }
 
-        $product = Product::where('id', $id)->where('status', 'active')->first();
+        $product = Product::where('id', $request->product_id)->where('status', 'active')->first();
 
         if ($product == null || $product->count == 0) {
             return response()->json([
@@ -75,11 +69,11 @@ class ProductsController extends Controller
             ]);
         }
 
-        $cart = AddToCard::where('user_id', Auth::user()->id)->get();
+        $cart = AddToCard::where('user_id', $request->user_id)->get();
 
         if ($cart->isEmpty()) {
             AddToCard::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $request->user_id,
                 'product_id' => $product->id,
                 'count' => 1,
                 'price' => $product->price,
@@ -87,7 +81,7 @@ class ProductsController extends Controller
         } else {
             $found = false;
             foreach ($cart as $item) {
-                if ($item->product_id == $id) {
+                if ($item->product_id == $request->product_id) {
                     $item->count += 1;
                     $item->save();
                     $found = true;
@@ -97,7 +91,7 @@ class ProductsController extends Controller
 
             if (!$found) {
                 AddToCard::create([
-                    'user_id' => Auth::user()->id,
+                    'user_id' => $request->user_id,
                     'product_id' => $product->id,
                     'count' => 1,
                     'price' => $product->price,
@@ -108,16 +102,60 @@ class ProductsController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Mahsulot savatga qo\'shildi.',
-            'cart' => AddToCartResource::collection(AddToCard::where('user_id', Auth::user()->id)->get()),
+            'cart' => AddToCartResource::collection(AddToCard::where('user_id', $request->user_id)->get()),
 
         ]);
     }
 
+    public function reduceCard(Request $request){
+        $product = Product::where('id', $request->product_id)->where('status', 'active')->first();
 
-    public function getCart()
+        if ($product == null || $product->count == 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Mahsulot topilmadi.',
+            ]);
+        }
+
+        $cart = AddToCard::where('user_id', $request->user_id)->get();
+
+        if ($cart->isEmpty()) {
+           return response()->json([
+               'success' => false,
+               'message' => 'Mahsulot topilmadi.',
+           ]);
+        } else {
+            $found = false;
+            foreach ($cart as $item) {
+                if ($item->product_id == $request->product_id) {
+                    $item->count -= 1;
+                    $item->save();
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                AddToCard::create([
+                    'user_id' => $request->user_id,
+                    'product_id' => $product->id,
+                    'count' => 1,
+                    'price' => $product->price,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Mahsulot savatga qo\'shildi.',
+            'cart' => AddToCartResource::collection(AddToCard::where('user_id', $request->user_id)->get()),
+
+        ]);
+    }
+    public function getCart($id)
     {
        if (Auth::check()) {
-           $cart = AddToCard::where('user_id', Auth::user()->id)->get();
+           $cart = AddToCard::where('user_id', $id)->get();
            if ($cart->isEmpty()) {
                return response()->json([
                    'success' => false,

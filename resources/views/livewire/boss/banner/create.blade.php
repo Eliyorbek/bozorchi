@@ -10,15 +10,24 @@
                 <div class="modal-body">
                     @csrf
                         <div class="row">
-                            <div class="form-group col-lg-6">
+                            <div class="form-group col-lg-12">
                                 <label for="name" class="name">Rasm</label>
                                 <input type="file" id="name" name="image" class="form-control" wire:model="image" placeholder="Ism kiriting">
                             </div>
-                            <div class="col-lg-6">
-                                <label for="slug">Slug</label>
-                                <input type="text" class="form-control" name="slug" placeholder="Bannerga mos nom yozing">
-                            </div>
                         </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="slug">Slug</label>
+                            <input type="text" class="form-control" name="slug" placeholder="Bannerga mos nom yozing">
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="type">Type</label>
+                            <select name="type" class="form-control" id="">
+                                <option value="0">Mahsulot</option>
+                                <option value="1">Kategoriya</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <label for="start">Boshlanish sana</label>

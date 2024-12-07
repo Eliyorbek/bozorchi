@@ -66,7 +66,7 @@
                                     <th>Mahsulotlar</th>
                                     <th>Yetkazish narx</th>
                                     <th>Buyurtma narx</th>
-                                    <th><button class="btn btn-sm btn-primary">Pul berish</button></th>
+                                    <th><button type="button" wire:click="allOrder({{$user->id}})" class="btn btn-sm btn-primary">Pul berish</button></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -85,7 +85,7 @@
                                             </td>
                                             <td>{{$order->delivery_price}} so'm</td>
                                             <td>{{$order->order->total_sum}} so'm</td>
-                                            <td><button type="button" wire:click="oneSalary({{$order}})" class="btn btn-success btn-sm"><i class="fa fa-dollar-sign"></i></button></td>
+                                            <td><button type="button" wire:click="oneSalary({{$order->id}})" class="btn btn-success btn-sm"><i class="fa fa-dollar-sign"></i></button></td>
                                         </tr>
                                     @endforeach
                                 @endif

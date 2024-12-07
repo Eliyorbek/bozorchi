@@ -17,6 +17,7 @@ class BannerResource extends JsonResource
         return [
             'image'=>'https://meningbozorchim.uz/storage/banner_img/'.$this->image,
             'slug'=>$this->slug,
+            'type'=>$this->type
         ];
     }
 }

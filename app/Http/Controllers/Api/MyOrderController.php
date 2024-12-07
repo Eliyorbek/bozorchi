@@ -15,20 +15,20 @@ use Illuminate\Support\Facades\Auth;
 class MyOrderController extends Controller
 {
 
-    public function myOrder(){
+    public function myOrder($id){
         $product0 =[];
         $product2 =[];
         $product3 =[];
-        $order0 = OrderItem::whereHas('order' , function($query){
-            $query->where('client_id' , Auth::user()->id)->whereIn('status' , [0,1]);
+        $order0 = OrderItem::whereHas('order' , function($query) use ($id){
+            $query->where('client_id' , $id)->whereIn('status' , [0,1]);
         })->get();
-        $order2 = OrderItem::whereHas('order' , function($query){
-            $query->where('client_id' , Auth::user()->id)->where('status' , 2);
+        $order2 = OrderItem::whereHas('order' , function($query) use ($id){
+            $query->where('client_id' , $id)->where('status' , 2);
         })->get();
-        $order3 = OrderItem::whereHas('order' , function($query){
-            $query->where('client_id' , Auth::user()->id)->where('status' , 3);
+        $order3 = OrderItem::whereHas('order' , function($query) use ($id){
+            $query->where('client_id' , $id)->where('status' , 3);
         })->get();
-        $user = User::where('id', Auth::user()->id)->first();
+        $user = User::where('id', $id)->first();
         foreach ($order0 as $order){
             $count = $order->count;
             $total_sum = $order->total_sum;
