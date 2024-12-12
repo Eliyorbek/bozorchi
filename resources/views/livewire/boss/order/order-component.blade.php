@@ -42,7 +42,7 @@
                                 <td>{{$model->total_sum}} so'm</td>
                                 <td>
                                     <a href="{{route('order-item' , $model->id)}}" class="btn  btn-info btn-sm">Buyurtmalar haqida</a>
-                                    <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
+{{--                                    <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>--}}
                                     <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-trash-alt"></i></button>
                                     <br>
                                     <button type="button" class="btn btn-sm btn-warning mt-1" wire:click="kuryerAdd({{$model->id}})">Kuryerga biriktirish</button>

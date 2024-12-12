@@ -73,13 +73,23 @@ use Illuminate\Support\Facades\Auth;
                 </a>
             </li>
         @endif
-        @if(Auth::user()->role==2 )
                 <li class="nav-item">
-                    <a href="{{route('kuryer.index')}}" class="nav-link">
-                        <i class="nav-icon fa-solid fa-truck-fast"></i>
-                        <p>Mening buyurtmalarim</p>
+                    <a href="{{route('contact.index')}}" class="nav-link">
+                        <i class="nav-icon fa-solid fa-phone"></i>
+                        <p>Aloqa</p>
                     </a>
                 </li>
-        @endif
+            <li class="nav-item">
+                <a href="{{route('about.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-mobile-alt"></i>
+                    <p>Ilova haqida</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('faq.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-circle-question"></i>
+                    <p>FaQ</p>
+                </a>
+            </li>
     </ul>
 </nav>

@@ -12,7 +12,6 @@
                         <label for="name" class="name">Name</label>
                         <input type="text" id="name" name="name" class="form-control" wire:model="name" placeholder="Ism kiriting">
                     </div>
-                    @include('livewire.activeBtn')
                 </form>
                 <div class="form-group mt-2">
                     <button type="button" class="btn btn-secondary" wire:click="close()">Close</button>

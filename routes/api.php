@@ -39,24 +39,32 @@ Route::middleware(['api', StartSession::class])->group(function () {
     });
 });
 
+Route::middleware('auth:api')->get('user', [UserController::class, 'me']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/categories' , [CategoryController::class , 'allCategories']);
+    Route::get('/categories/{id}' , [CategoryController::class , 'getCategory']);
+    Route::get('/sup-category' , [SupCategoryController::class , 'allSupCategory']);
+    Route::get('/products' , [\App\Http\Controllers\Api\ProductsController::class , 'allProducts']);
+    Route::get('/products/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrCategory']);
+    Route::get('/products/sup-category/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrSupCategory']);
+    Route::get('/allAddToCard/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'getCart']);
+    Route::get('/contact'  , [\App\Http\Controllers\Api\ContactController::class , 'index']);
+    Route::get('/faq'  , [\App\Http\Controllers\Api\FaqController::class , 'index']);
+    Route::get('/banner' , [BannerController::class , 'index']);
+    Route::get('/banner/action-url/{slug}' , [BannerController::class , 'bannerOne']);
+    Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
+    Route::get('/about' , [\App\Http\Controllers\Backend\AboutController::class , 'allAbout']);
+});
+Route::post('/refresh-token', [UserController::class, 'refreshToken']);
+
 Route::get('/user/{id}' , [UserController::class , 'getUser']);
 
 Route::get('kuryer/login' , [KuryerController::class, 'login']);
 
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/categories' , 'allCategories');
-    Route::post('/categories/{id}' , 'getCategory');
-});
-Route::controller(SupCategoryController::class)->group(function () {
-    Route::get('/sup-category' , 'allSupCategory');
-});
 Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(function () {
-    Route::get('/products' , 'allProducts');
-    Route::get('/products/{id}' , 'ProductFiltrCategory');
-    Route::get('/products/sup-category/{id}' , 'ProductFiltrSupCategory');
     Route::post('/add-to-cart' , 'addToCart');
     Route::post('/reduce-cart' , 'reduceCard');
-    Route::get('/allAddToCard/{id}' , 'getCart');
 });
 
 Route::controller(OrderController::class)->group(function () {
@@ -68,8 +76,6 @@ Route::controller(DistanceController::class)->group(function () {
 });
 
 Route::post('/search' , [SearchController::class, 'search']);
-Route::get('/banner' , [BannerController::class , 'index']);
-Route::get('/banner/action-url' , [BannerController::class , 'bannerOne']);
-Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
+
 
 

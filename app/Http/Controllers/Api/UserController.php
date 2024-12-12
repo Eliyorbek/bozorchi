@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class UserController extends Controller
@@ -36,19 +37,26 @@ class UserController extends Controller
     {
         try {
             $googleUser = Socialite::driver('google')->stateless()->user();
-
-            // Foydalanuvchini bazaga tekshirish yoki yaratish
-            $user = User::updateOrCreate(
-                ['email' => $googleUser->email],
-                [
+            $user = User::where('email' ,$googleUser->email)->first();
+            if (!$user){
+                $user = User::create([
+                    'email' => $googleUser->email,
                     'name' => $googleUser->name,
                     'google_id' => $googleUser->id,
-                    'avatar' => $googleUser->avatar,
-                ]
-            );
+                    'image' => $googleUser->avatar,
+                    'role' => 3
+                ]);
+            }else{
+                $user->update([
+                    'name' => $googleUser->name,
+                    'google_id' => $googleUser->id,
+                    'image' => $googleUser->avatar,
+                ]);
+            }
+
 
             // Sanctum token yaratish
-            $token = $user->createToken('auth-token')->plainTextToken;
+            $token = JWTAuth::fromUser($user);
 
             return response()->json([
                 'token' => $token,
@@ -56,6 +64,31 @@ class UserController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Google login failed'], 500);
+        }
+    }
+
+    public function me()
+    {
+        return response()->json(auth()->user());
+    }
+
+    public function refreshToken()
+    {
+        try {
+            // Yangi tokenni yangilash
+            $newToken = JWTAuth::parseToken()->refresh();
+
+            return response()->json([
+                'success' => true,
+                'access_token' => $newToken,
+                'token_type' => 'Bearer',
+                'expires_in' => auth('api')->factory()->getTTL() * 336 // Tugash vaqti (soniyalar)
+            ]);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid refresh token'
+            ], 401);
         }
     }
 

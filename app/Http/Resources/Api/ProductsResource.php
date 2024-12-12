@@ -15,20 +15,24 @@ class ProductsResource extends JsonResource
     public function toArray(Request $request): array
     {
         $image = [];
-        foreach ($this->images as $img){
-            array_push($image, 'https://meningbozorchim.uz/storage/product_img/'.$img['path']);
+        if ($this->images) {
+            foreach ($this->images as $img) {
+                array_push($image, 'https://meningbozorchim.uz/storage/product_img/' . $img['path']);
+            }
         }
+
         return [
-            'id'=>$this->id,
-            'name'=>$this->name,
-            'image'=>$image,
-            'price'=>$this->price,
-            'discount_price'=>$this->discount_price,
-            'description'=>$this->description,
-            'category'=>$this->category->name,
-            'sup-category'=>$this->sup->name,
-            'miqdori'=>$this->count,
-            'o\'lchov birligi'=>$this->brend->name,
+            'id' => $this->id ?? null,
+            'name' => $this->name ?? 'Noma’lum',
+            'image' => $image,
+            'price' => $this->price ?? 0,
+            'discount_price' => $this->discount_price ?? 0,
+            'description' => $this->description ?? '',
+            'category' => $this->category->name ?? 'Noma’lum',
+            'sup-category' => $this->sup->name ?? 'Noma’lum',
+            'miqdori' => $this->count ?? 0,
+            'o\'lchov birligi' => $this->brend->name ?? 'Noma’lum',
         ];
+
     }
 }

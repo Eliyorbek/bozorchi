@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\BrendController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ClientController;
+use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\MyProfileController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
@@ -75,6 +76,27 @@ Route::middleware(['admin' , 'admin.check:1'])->group(function(){
        Route::get('/banner' , 'index')->name('banner.index');
        Route::post('/banner' , 'store')->name('banner.store');
        Route::put('/banner/{id}' , 'update')->name('banner.update');
+    });
+
+//    Route contact
+    Route::controller(ContactController::class)->group(function(){
+        Route::get('/contact' , 'index')->name('contact.index');
+        Route::post('/contact' , 'store')->name('contact.store');
+        Route::put('/contact/{id}' , 'update')->name('contact.update');
+    });
+
+//    Route Faq
+    Route::controller(\App\Http\Controllers\Backend\FaqController::class)->group(function(){
+        Route::get('/faq' , 'index')->name('faq.index');
+        Route::post('/faq' , 'store')->name('faq.store');
+        Route::put('/faq/{id}' , 'update')->name('faq.update');
+    });
+
+//    Route about
+    Route::controller(\App\Http\Controllers\Backend\AboutController::class)->group(function(){
+        Route::get('/about' , 'index')->name('about.index');
+        Route::post('/about' , 'store')->name('about.store');
+        Route::put('/about/{id}' , 'update')->name('about.update');
     });
 
 });

@@ -15,6 +15,7 @@
         </form>
     </div>
     <audio id="audios" controls="true" autoplay="autoplay" class="audio" style="display:none;"></audio>
+
 </section>
 <script src="js/script.js"></script>
 

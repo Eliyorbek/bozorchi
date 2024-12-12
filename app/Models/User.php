@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+ use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -29,6 +30,36 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+     public function getJWTIdentifier()
+     {
+         return $this->getKey();  // Bu yerda foydalanuvchi IDsi qaytariladi
+     }
+
+     /**
+      * Get custom claims for the JWT token.
+      *
+      * @return array
+      */
+     public function getJWTCustomClaims()
+     {
+         if ($this->image !=null){
+             return [
+                 'id'=>$this->id,
+                 'name'=>$this->name,
+                 'email'=>$this->email,
+                 'phone'=>$this->phone,
+                 'image'=>'https://meningbozorchim.uz/storage/user_img/'.$this->image,
+             ];
+         }else{
+             return [
+                 'id'=>$this->id,
+                 'name'=>$this->name,
+                 'email'=>$this->email,
+                 'phone'=>$this->phone,
+             ];
+         }
+     }
     /**
      * The attributes that should be cast.
      *
