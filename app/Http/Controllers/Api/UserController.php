@@ -30,7 +30,9 @@ class UserController extends Controller
 
     public function googleAuth()
     {
-       return  Socialite::driver('google')->redirect();
+        $url =  $googleAuthUrl = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
+
+        return  $url;
     }
 
     public function handleGoogleCallback()
@@ -65,6 +67,43 @@ class UserController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'Google login failed'], 500);
         }
+    }
+
+    public function authGoogle(Request $request){
+        $request->validate([
+            'email' => 'required|string|email',
+            'name'=>'required|string',
+        ]);
+        $user = User::where('email' , $request->email)->first();
+        if (!$user){
+           $user = User::create([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'image'=>$request->avatar,
+                'role'=>3,
+                'google_id'=>$request->google_id,
+            ]);
+        }else{
+            $user->update([
+                'name'=>$request->name,
+                'google_id'=>$user->google_id,
+                'image'=>$user->avatar,
+            ]);
+        }
+
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json([
+            'success'=>true,
+            'data'=>[
+                'id'=>$user->id,
+                'name'=>$user->name,
+                'email'=>$user->email,
+                'google_id'=>$user->google_id,
+                'image'=>$user->avatar,
+            ],
+            'token'=>$token,
+        ]);
     }
 
     public function me()

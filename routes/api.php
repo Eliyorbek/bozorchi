@@ -56,25 +56,26 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
     Route::get('/about' , [\App\Http\Controllers\Backend\AboutController::class , 'allAbout']);
 });
+//Refresh-token route
 Route::post('/refresh-token', [UserController::class, 'refreshToken']);
-
+//Auth-google route
+Route::post('/auth-google', [UserController::class, 'authGoogle']);
+//Get user route
 Route::get('/user/{id}' , [UserController::class , 'getUser']);
-
-Route::get('kuryer/login' , [KuryerController::class, 'login']);
-
+// add-to-card and reduce-card route
 Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(function () {
     Route::post('/add-to-cart' , 'addToCart');
     Route::post('/reduce-cart' , 'reduceCard');
 });
-
+//Order route
 Route::controller(OrderController::class)->group(function () {
     Route::post('/order' , 'orderSave');
 });
-
+//Route distance --- locatsion oraliq masofani yetkazib berishini hisoblash
 Route::controller(DistanceController::class)->group(function () {
     Route::post('/delivery-price' , 'deliveryPrice');
 });
-
+//Multiple search rotue
 Route::post('/search' , [SearchController::class, 'search']);
 
 
