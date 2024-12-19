@@ -76,9 +76,9 @@ class OrderComponent extends MyComponent
         if ($this->search!=null) {
             $models = Order::where('status' , 0)->whereHas('client' , function ($query){
                 $query->where('name' , 'like' , '%' . $this->search . '%');
-            })->paginate(10);
+            })->orderBy('id', 'desc')->paginate(10);
         }else{
-            $models = Order::where('status' , 0)->paginate(10);
+            $models = Order::where('status' , 0)->orderBy('id', 'desc')->paginate(10);
 
         }
         return view('livewire.boss.order.order-component' ,compact('models'));

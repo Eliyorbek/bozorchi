@@ -15,6 +15,7 @@ class SupCategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id'=>$this->id,
             'name'=>$this->name,
             'category'=>$this->category->name,
             'image'=>'https://meningbozorchim.uz/storage/sup_img/'.$this->image,

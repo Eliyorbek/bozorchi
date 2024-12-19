@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\JwtAuthenticate;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Session\Middleware\StartSession;
 
@@ -58,7 +59,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth:api' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
+        'auth:api' => JwtAuthenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

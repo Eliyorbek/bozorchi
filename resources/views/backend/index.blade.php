@@ -11,6 +11,49 @@
             color: #000000;
         }
     </style>
+
+    @if(\Illuminate\Support\Facades\Session::has('bozorchi'))
+        <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+        <div>
+            <style>
+                .shows{
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100vh;
+                    background-color: #95A0AF;
+                    opacity: 0.5;
+                    z-index:1;
+                }
+                .bozorchi{
+                    position: fixed;
+                    left: 50%;
+                    top: 10%;
+                    transform: translate(-50%);
+                }
+            </style>
+            <div class="shows"></div>
+        </div>
+        <div class="row">
+            <div class="card bozorchi animate__animated animate__zoomInDown" style="z-index: 4; width: 500px;height: 600px;">
+                    <div class="modal-body" >
+                        <img src="/bozorchi1.jpg" style="width: 100%;height: 100%;" alt="">
+                    </div>
+                        <h1 class="text" style="text-align: center;">Bozorchiga hush kelibsiz !</h1>
+            </div>
+        </div>
+        <script>
+            setTimeout(function() {
+                $('.bozorchi').hide();
+                $('.shows').hide();// Divni yashirish
+            }, 2000);
+        </script>
+    @endif
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -35,7 +78,7 @@
 
                     <div class="info-box-content">
                         <a href="{{route('order.index')}}">
-                            <span class="info-box-text">Jami buyurtmalar </span>
+                            <span class="info-box-text">Yangi buyurtmalar </span>
                             <span class="info-box-number">
                             {{count($orders)}}
                   <small>ta</small>

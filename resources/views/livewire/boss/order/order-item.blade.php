@@ -12,7 +12,7 @@
                             </div>
                         </form>
                     </div>
-                    <a href="{{route('order.index')}}" class="btn btn-sm btn-secondary"> <i class="fa fa-arrow-circle-left"></i> &nbsp;Orqaga</a>
+                    <a href="{{route('order.index')}}" class="btn btn-secondary col-lg-2 mb-3"> <i class="fa fa-arrow-circle-left"></i> &nbsp;Orqaga</a>
                 </div>
             </div>
 

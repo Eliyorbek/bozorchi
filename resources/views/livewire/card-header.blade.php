@@ -1,5 +1,5 @@
 <div>
-    <div class="card-header row d-flex" style="align-items: center;">
+    <div class="card-header row d-flex" wire:ignore style="align-items: center;">
 
         <div class="col-lg-10">
             <form action="">

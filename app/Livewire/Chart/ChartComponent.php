@@ -18,16 +18,16 @@ class ChartComponent extends Component
 
     public function loadChartData()
     {
-        $sales = Order::selectRaw('MONTH(created_at) as month, SUM(total_sum) as total_sales')
-            ->groupBy('month')
-            ->orderBy('month')
+        $sales = Order::selectRaw('DATE(created_at) as sale_date, SUM(total_sum) as total_amount')
+            ->groupBy('sale_date')
+            ->orderBy('sale_date', 'asc')
             ->get();
 
         $this->chartData = [
-            'labels' => $sales->pluck('month')->map(function ($month) {
-                return Carbon::create()->month($month)->format('F');
+            'labels' => $sales->pluck('sale_date')->map(function ($date) {
+                return Carbon::parse($date)->format('d.m.Y'); // Kunning sanasi va oy nomini formatlash
             }),
-            'data' => $sales->pluck('total_sales'),
+            'data' => $sales->pluck('total_amount'), // To'g'ri ustun nomi
         ];
 
     }

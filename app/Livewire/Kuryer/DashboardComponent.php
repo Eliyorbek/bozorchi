@@ -74,6 +74,7 @@ class DashboardComponent extends MyComponent
         $this->order = Order::where('id',$this->delivery->order_id)->first();
         $this->delivery->status = 3;
         $this->order->status = 3;
+        $this->order->payment_status = 'tolandi';
         $this->delivery->save();
         $this->order->save();
         User::find($this->delivery->courier_id)->update([

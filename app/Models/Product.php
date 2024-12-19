@@ -12,7 +12,9 @@ class Product extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'qr_code' => 'array',
+        'price' => 'float',
+        'discount_price' => 'float',
+        'count'=>'float',
     ];
 
     public function category(){

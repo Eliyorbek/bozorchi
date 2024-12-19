@@ -39,7 +39,7 @@ class CategoryController extends Controller
                     'id'=>$category->id,
                     'name'=>$category->name,
                     'sup-categories' => SupCategoryResource::collection($categories),
-                    'image'=>'/storage/category_img/'.$category->image,
+                    'image'=>'https://meningbozorchim.uz/storage/category_img/'.$category->image,
                 ],
             ],200,[],JSON_UNESCAPED_SLASHES);
         }

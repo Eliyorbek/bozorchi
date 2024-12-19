@@ -96,6 +96,7 @@ class ProductController extends Controller
                     if(public_path('storage/product_img/').$image['path']){
                         unlink(public_path('storage/product_img/').$image['path']);
                     }
+                    $image->delete();
                 }
             }
             foreach ($request->file('image') as $image) {

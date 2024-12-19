@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AboutRequest;
+use App\Http\Resources\Api\AboutResource;
 use App\Models\About;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,7 @@ class AboutController extends Controller
             ]);
         }else{
             return response()->json([
-                'data'=>[
-                    'title'=>$about->name,
-                    'description'=>$about->description,
-                ],
+                'data'=>AboutResource::collection($about),
             ]);
         }
     }

@@ -33,7 +33,7 @@
                     @if(isset($models))
                         @foreach($models as $model)
                             <tr>
-                                <td>{{++$num}}</td>
+                                <td>{{$model->id}}</td>
                                 <td>{{$model->client->name}}</td>
                                 <td>{{$model->phone}}</td>
                                 <td style="width: 150px;height: 150px;">{!!$model->address!!}</td>
@@ -41,7 +41,7 @@
                                 <td style="text-transform: none"><button type="button"  class="btn btn-sm btn-danger">{{$model->payment_status}}</button></td>
                                 <td>{{$model->total_sum}} so'm</td>
                                 <td>
-                                    <a href="{{route('order-item' , $model->id)}}" class="btn  btn-info btn-sm">Buyurtmalar haqida</a>
+                                    <a href="{{route('order-item' , $model->id)}}" class="btn  btn-info btn-sm">Buyurtma haqida</a>
 {{--                                    <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>--}}
                                     <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-trash-alt"></i></button>
                                     <br>

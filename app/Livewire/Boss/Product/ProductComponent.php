@@ -116,9 +116,9 @@ class ProductComponent extends MyComponent
             ->orWhereHas('brend',function($q){
                 $q->where('name','like','%'.$this->search.'%');
             })
-                ->paginate(20);
+                ->paginate(15);
         }else{
-            $models = Product::paginate(20);
+            $models = Product::paginate(15);
         }
 
         return view('livewire.boss.product.product-component' , compact('models'));

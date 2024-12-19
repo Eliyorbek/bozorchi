@@ -72,13 +72,24 @@ use Illuminate\Support\Facades\Auth;
                     <p>Kuryerlarga pul berish</p>
                 </a>
             </li>
-        @endif
-                <li class="nav-item">
-                    <a href="{{route('contact.index')}}" class="nav-link">
-                        <i class="nav-icon fa-solid fa-phone"></i>
-                        <p>Aloqa</p>
-                    </a>
-                </li>
+            <li class="nav-item">
+                <a href="{{route('delivery-price.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-dollar"></i>
+                    <p>Dastafka narxni belgilash</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('game.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-gamepad"></i>
+                    <p>Yutuqli o'yin</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('contact.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-phone"></i>
+                    <p>Aloqa</p>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="{{route('about.index')}}" class="nav-link">
                     <i class="nav-icon fa-solid fa-mobile-alt"></i>
@@ -91,5 +102,12 @@ use Illuminate\Support\Facades\Auth;
                     <p>FaQ</p>
                 </a>
             </li>
-    </ul>
+            <li class="nav-item">
+                <a href="{{route('comment.index')}}" class="nav-link">
+                    <i class="nav-icon fa-solid fa-comment"></i>
+                    <p>Mijozlar fikri</p>
+                </a>
+            </li>
+        @endif
+        </ul>
 </nav>

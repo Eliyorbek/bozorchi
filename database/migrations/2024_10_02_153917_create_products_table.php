@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('name');
 //            $table->json('qr_code')->nullable();
-            $table->bigInteger('price')->nullable();
+            $table->float('price')->nullable();
 //            $table->bigInteger('sale_price')->nullable();
-            $table->bigInteger('discount_price')->nullable();
+            $table->float('discount_price')->nullable();
 //            $table->string('color')->nullable();
             $table->longText('description')->nullable();
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('brend_id')->unsigned()->nullable();
-            $table->bigInteger('count')->nullable();
+            $table->float('count')->nullable();
             $table->string('status')->default('nofaol');
             $table->timestamps();
         });

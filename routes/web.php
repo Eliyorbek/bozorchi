@@ -99,6 +99,21 @@ Route::middleware(['admin' , 'admin.check:1'])->group(function(){
         Route::put('/about/{id}' , 'update')->name('about.update');
     });
 
+//    Routee Game
+    Route::controller(\App\Http\Controllers\Game\GameController::class)->group(function(){
+        Route::get('/game' , 'index')->name('game.index');
+    });
+
+    Route::controller(\App\Http\Controllers\Backend\DeliveryPriceControlller::class)->group(function(){
+        Route::get('/delivery-price' , 'index')->name('delivery-price.index');
+        Route::post('/delivery-price' , 'store')->name('delivery-price.store');
+        Route::put('/delivery-price/{id}' , 'update')->name('delivery-price.update');
+    });
+
+    Route::controller(\App\Http\Controllers\Api\CommentController::class)->group(function(){
+        Route::get('/comment' , 'index')->name('comment.index');
+    });
+
 });
 
 

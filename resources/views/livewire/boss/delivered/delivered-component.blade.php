@@ -72,6 +72,7 @@
                                 <td>
                                     <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
                                     <button type="button" class="btn  btn-info btn-sm" wire:click="openLocaltion({{$model->order_id}})"><i class="fa fa-location-arrow"></i></button>
+                                    <a href="{{route('order-item' , $model->order->id)}}" class="btn  btn-info btn-sm">Buyurtma haqida</a>
                                 </td>
                             </tr>
                         @endforeach

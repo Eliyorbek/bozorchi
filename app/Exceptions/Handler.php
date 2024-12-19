@@ -27,4 +27,31 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        // Token muddati tugagan bo'lsa
+        if ($exception instanceof TokenExpiredException) {
+            return response()->json([
+                'message' => 'Token expired.'
+            ], 401);
+        }
+
+        // Token yaroqsiz bo'lsa
+        if ($exception instanceof TokenInvalidException) {
+            return response()->json([
+                'message' => 'Token is invalid.'
+            ], 401);
+        }
+
+        // Token bo'lmasa yoki JWT bilan bog'liq boshqa xatoliklar bo'lsa
+        if ($exception instanceof JWTException) {
+            return response()->json([
+                'message' => 'Token not provided or invalid.'
+            ], 401);
+        }
+
+        // Boshqa xatoliklar uchun standart render funksiyasi
+        return parent::render($request, $exception);
+    }
 }

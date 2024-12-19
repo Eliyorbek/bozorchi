@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
             if ($user->email == $request->email && Hash::check($request->password, $user->password) && $user->role == 1) {
                 $request->authenticate();
                 $request->session()->regenerate();
-                return redirect()->intended(RouteServiceProvider::HOME);
+                return redirect()->intended(RouteServiceProvider::HOME)->with('bozorchi' , 'bozorchi');
             }elseif ($user->email == $request->email && Hash::check($request->password, $user->password) && $user->role == 2){
                 $request->authenticate();
                 $request->session()->regenerate();

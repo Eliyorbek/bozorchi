@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserRequest;
+use App\Http\Resources\Api\MyOrderItemResource;
+use App\Http\Resources\Api\MyOrderResource;
 use App\Http\Resources\Api\ProductsResource;
 use App\Http\Resources\UserResource;
 use App\Models\Order;
@@ -16,60 +18,25 @@ class MyOrderController extends Controller
 {
 
     public function myOrder($id){
-        $product0 =[];
-        $product2 =[];
-        $product3 =[];
-        $order0 = OrderItem::whereHas('order' , function($query) use ($id){
-            $query->where('client_id' , $id)->whereIn('status' , [0,1]);
-        })->get();
-        $order2 = OrderItem::whereHas('order' , function($query) use ($id){
-            $query->where('client_id' , $id)->where('status' , 2);
-        })->get();
-        $order3 = OrderItem::whereHas('order' , function($query) use ($id){
-            $query->where('client_id' , $id)->where('status' , 3);
-        })->get();
-        $user = User::where('id', $id)->first();
-        foreach ($order0 as $order){
-            $count = $order->count;
-            $total_sum = $order->total_sum;
-            array_push($product0 , [
-                'count' => $count,
-                'total_sum' => $total_sum,
-                'product'=>new ProductsResource($order->product),
-            ]);
-        }
-        foreach ($order2 as $order){
-            $count = $order->count;
-            $total_sum = $order->total_sum;
-            array_push($product2 , [
-                'count' => $count,
-                'total_sum' => $total_sum,
-                'product'=>new ProductsResource($order->product),
-            ]);
-        }
-        foreach ($order3 as $order){
-            $count = $order->count;
-            $total_sum = $order->total_sum;
-            array_push($product3 , [
-                'count' => $count,
-                'total_sum' => $total_sum,
-                'product'=>new ProductsResource($order->product),
-            ]);
-        }
-
-        if($user!=null){
-            return response()->json([
-                'user'=>$user->name,
-                'jarayonda'=>$product0,
-                'yetkazilmoqda'=>$product2,
-                'yetkazildi'=>$product3,
-
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'User mavjud emas!',
-            ]);
-        }
+        $orders = Order::where('client_id' , $id)->get();
+        return response()->json([
+            'success' => true,
+            'data'=>MyOrderResource::collection($orders),
+        ],200,[],JSON_NUMERIC_CHECK);
     }
 
+    public function myOrderItem($id){
+        $order0 = OrderItem::where('order_id' , $id)->whereIn('status' , [0,1])->get();
+        $order1 = OrderItem::where('order_id' , $id)->where('status' , 2)->get();
+        $order3= OrderItem::where('order_id' , $id)->where('status' , 3)->get();
+
+        return response()->json([
+            'success' => true,
+            'data'=>[
+                'jarayonda'=>MyOrderItemResource::collection($order0),
+                'yetkazilmoqda'=>MyOrderItemResource::collection($order1),
+                'yetkazildi'=>MyOrderItemResource::collection($order3),
+            ]
+        ],200,[],JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
+    }
 }

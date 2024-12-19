@@ -49,7 +49,7 @@ class OrderItem extends MyComponent
 
     public function render()
     {
-        $models = ModelsOrderItem::where('order_id', $this->id)->where('status' , 0)->paginate(10);
+        $models = ModelsOrderItem::where('order_id', $this->id)->paginate(10);
         return view('livewire.boss.order.order-item' , compact('models'));
     }
 }

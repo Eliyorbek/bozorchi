@@ -37,7 +37,7 @@
                     @if(isset($models))
                         @foreach($models as $model)
                             <tr>
-                                <td>{{++$count}}</td>
+                                <td>{{$model->id}}</td>
                                 <td>{{$model->name}}</td>
                                 <td style="text-transform: none">{{$model->price}} so'm  </td>
                                 <td>{{$model->discount_price == null ? '----' : $model->discount_price}} so'm  </td>

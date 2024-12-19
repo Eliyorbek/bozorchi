@@ -24,15 +24,14 @@ class UserController extends Controller
         }else{
             return response()->json([
                 'data'=>new UserResource($user)
-            ]);
+            ], 200,[] , JSON_UNESCAPED_SLASHES);
         }
     }
 
     public function googleAuth()
     {
-        $url =  $googleAuthUrl = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
+       return Socialite::driver('google')->redirect();
 
-        return  $url;
     }
 
     public function handleGoogleCallback()
@@ -63,7 +62,7 @@ class UserController extends Controller
             return response()->json([
                 'token' => $token,
                 'user' => $user,
-            ]);
+            ],  200, [], JSON_UNESCAPED_SLASHES);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Google login failed'], 500);
         }
@@ -103,7 +102,7 @@ class UserController extends Controller
                 'image'=>$user->avatar,
             ],
             'token'=>$token,
-        ]);
+        ],200, [], JSON_UNESCAPED_SLASHES);
     }
 
     public function me()

@@ -13,14 +13,41 @@ use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
 {
-    public function allProducts(): \Illuminate\Http\JsonResponse
+    public function allProducts(Request $request): \Illuminate\Http\JsonResponse
     {
-        $products = Product::where('status', 'active')->get();
+        $page = $request->query('page', 1);
+        $limit = $request->query('limit', 24);
+        $categoryId = $request->query('category_id');
+        $sup = $request->query('sup');
+        $search = $request->query('search');
+
+        $products = Product::when($categoryId, function ($query) use ($categoryId) {
+            $query->whereHas('category', function ($q) use ($categoryId) {
+                $q->where('id', $categoryId);
+            });
+        })->when($sup, function ($query) use ($sup) {
+            $query->whereHas('sup', function ($q) use ($sup) {
+                $q->where('id', $sup);
+            });
+        })->when($search, function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        })
+            ->where('status', 'active')
+            ->paginate($limit);
         if($products!=null){
             return response()->json([
                 'success' => true,
                 'data' => ProductsResource::collection($products),
-            ],200,[],JSON_UNESCAPED_SLASHES);
+                'pagination' => [
+                    'total' => $products->total(), // Jami mahsulotlar soni
+                    'count' => $products->count(), // Joriy sahifadagi mahsulotlar soni
+                    'per_page' => $products->perPage(), // Har bir sahifadagi mahsulotlar soni
+                    'current_page' => $products->currentPage(), // Joriy sahifa raqami
+                    'last_page' => $products->lastPage(), // Oxirgi sahifa raqami
+                    'next_page_url' => $products->nextPageUrl(), // Keyingi sahifa URL
+                    'prev_page_url' => $products->previousPageUrl(), // Oldingi sahifa URL
+                ],
+            ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
         }else{
             return response()->json([
                 'message'=>'Malumot topilmadi',
@@ -28,13 +55,36 @@ class ProductsController extends Controller
         }
     }
 
+    public function oneProduct($id){
+        $product = Product::find($id);
+        if($product!=null){
+            return response()->json([
+                'success' => true,
+                'data' => new ProductsResource($product),
+            ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+        }else{
+            return response()->json([
+                'success' => false,
+                'data' => $product,
+            ]);
+        }
+    }
     public function ProductFiltrCategory($id){
-        $products = Product::where('category_id', $id)->where('status','active')->get();
+        $products = Product::where('category_id', $id)->where('status','active')->paginate(20);
         if($products!=null){
             return response()->json([
                 'success' => true,
                 'data' => ProductsResource::collection($products),
-            ],200,[],JSON_UNESCAPED_SLASHES);
+                'pagination' => [
+                    'total' => $products->total(), // Jami mahsulotlar soni
+                    'count' => $products->count(), // Joriy sahifadagi mahsulotlar soni
+                    'per_page' => $products->perPage(), // Har bir sahifadagi mahsulotlar soni
+                    'current_page' => $products->currentPage(), // Joriy sahifa raqami
+                    'last_page' => $products->lastPage(), // Oxirgi sahifa raqami
+                    'next_page_url' => $products->nextPageUrl(), // Keyingi sahifa URL
+                    'prev_page_url' => $products->previousPageUrl(), // Oldingi sahifa URL
+                ],
+            ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
         }else{
             return response()->json([
                 'message'=>'Malumot topilmadi',
@@ -43,12 +93,21 @@ class ProductsController extends Controller
     }
 
     public function ProductFiltrSupCategory($id){
-        $products = Product::where('sup_id', $id)->where('status','active')->get();
+        $products = Product::where('sup_id', $id)->where('status','active')->paginate(20);
         if($products!=null){
             return response()->json([
                 'success' => true,
                 'data' => ProductsResource::collection($products),
-            ],200,[],JSON_UNESCAPED_SLASHES);
+                'pagination' => [
+                    'total' => $products->total(), // Jami mahsulotlar soni
+                    'count' => $products->count(), // Joriy sahifadagi mahsulotlar soni
+                    'per_page' => $products->perPage(), // Har bir sahifadagi mahsulotlar soni
+                    'current_page' => $products->currentPage(), // Joriy sahifa raqami
+                    'last_page' => $products->lastPage(), // Oxirgi sahifa raqami
+                    'next_page_url' => $products->nextPageUrl(), // Keyingi sahifa URL
+                    'prev_page_url' => $products->previousPageUrl(), // Oldingi sahifa URL
+                ],
+            ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
         }else{
             return response()->json([
                 'message'=>'Malumot topilmadi',
@@ -60,7 +119,7 @@ class ProductsController extends Controller
     public function addToCart(Request $request)
     {
 
-        $product = Product::where('id', $request->product_id)->where('status', 'active')->first();
+        $product = Product::where('id', $request->productId)->where('status', 'active')->first();
 
         if ($product == null || $product->count == 0) {
             return response()->json([
@@ -69,88 +128,59 @@ class ProductsController extends Controller
             ]);
         }
 
-        $cart = AddToCard::where('user_id', $request->user_id)->get();
+        $cart = AddToCard::where('user_id', $request->userId)->where('product_id' , $product->id)->first();
 
-        if ($cart->isEmpty()) {
-            AddToCard::create([
-                'user_id' => $request->user_id,
-                'product_id' => $product->id,
-                'count' => 1,
-                'price' => $product->price,
-            ]);
-        } else {
-            $found = false;
-            foreach ($cart as $item) {
-                if ($item->product_id == $request->product_id) {
-                    $item->count += 1;
-                    $item->save();
-                    $found = true;
-                    break;
-                }
-            }
-
-            if (!$found) {
+        if (!$cart) {
+            if($product->discount_price == null){
                 AddToCard::create([
-                    'user_id' => $request->user_id,
+                    'user_id' => $request->userId,
                     'product_id' => $product->id,
-                    'count' => 1,
+                    'count' => $request->quantity,
                     'price' => $product->price,
+                    'total_sum'=>$request->quantity * $product->price,
+                ]);
+            }else{
+                AddToCard::create([
+                    'user_id' => $request->userId,
+                    'product_id' => $product->id,
+                    'count' => $request->quantity,
+                    'price' => $product->discount_price,
+                    'total_sum'=>$request->quantity * $product->discount_price,
                 ]);
             }
+        } else {
+           if($request->quantity <= 0){
+               $cart->delete();
+           }else{
+               $cart->update([
+                   'count'=>$request->quantity
+               ]);
+           }
         }
 
         return response()->json([
             'success' => true,
             'message' => 'Mahsulot savatga qo\'shildi.',
-            'cart' => AddToCartResource::collection(AddToCard::where('user_id', $request->user_id)->get()),
-
-        ]);
+            'cart' => AddToCartResource::collection(AddToCard::where('user_id', $request->userId)->get()),
+        ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
     }
 
     public function reduceCard(Request $request){
-        $product = Product::where('id', $request->product_id)->where('status', 'active')->first();
 
-        if ($product == null || $product->count == 0) {
+        $cart = AddToCard::where('user_id', $request->userId)->where('product_id' , $request->productId)->first();
+
+        if(!$cart){
             return response()->json([
                 'success' => false,
-                'message' => 'Mahsulot topilmadi.',
+                'data'=>$cart
+            ]);
+        }else{
+            $cart->delete();
+            return response()->json([
+                'success' => true,
+                'message'=>'Mahsulot savatdan o\'chirildi',
             ]);
         }
-
-        $cart = AddToCard::where('user_id', $request->user_id)->get();
-
-        if ($cart->isEmpty()) {
-           return response()->json([
-               'success' => false,
-               'message' => 'Mahsulot topilmadi.',
-           ]);
-        } else {
-            $found = false;
-            foreach ($cart as $item) {
-                if ($item->product_id == $request->product_id) {
-                    $item->count -= 1;
-                    $item->save();
-                    $found = true;
-                    break;
-                }
-            }
-
-            if (!$found) {
-                AddToCard::create([
-                    'user_id' => $request->user_id,
-                    'product_id' => $product->id,
-                    'count' => 1,
-                    'price' => $product->price,
-                ]);
-            }
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Mahsulot savatga qo\'shildi.',
-            'cart' => AddToCartResource::collection(AddToCard::where('user_id', $request->user_id)->get()),
-
-        ]);
     }
     public function getCart($id)
     {
@@ -159,19 +189,19 @@ class ProductsController extends Controller
            if ($cart->isEmpty()) {
                return response()->json([
                    'success' => false,
-                   'message' => 'Mahsulot topilmadi.',
-               ]);
+                   'data' => $cart,
+               ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
            }else{
                return response()->json([
                    'success' => true,
                    'data'=>AddToCartResource::collection($cart),
-               ]);
+               ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
            }
        }else{
            return response()->json([
                'success' => false,
                'message'=>'Bunday foydalanuvchi tizimda mavjud emas!'
-           ]);
+           ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
        }
     }
 

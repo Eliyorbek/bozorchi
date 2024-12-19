@@ -53,11 +53,12 @@
                                 </td>
                                 <td>{{$total}} so'm</td>
                                 <td style="text-transform: none"><button type="button"  class="btn btn-sm btn-{{$model->status==2?'success':'warning'}}">{{$model->status==1?'Olmadi':'Oldi'}}</button></td>
-                                <td>
-                                    <button type="button" class="btn  btn-info btn-sm" wire:click="updateWindow({{$model->id}})">Buyurtma qo'shish</button>
-                                    <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="btn  btn-success btn-sm" wire:click="openLocaltion({{$model->order_id}})"><i class="fa fa-location-arrow"></i></button>
-                                    <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-close"></i></button>
+                                <td style="width: 250px;">
+                                    <button type="button" class="btn  mt-1 btn-outline-secondary btn-sm" wire:click="updateWindow({{$model->id}})">Buyurtma qo'shish</button>
+                                    <button type="button" class="btn  mt-1 btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
+                                    <button type="button" class="btn  mt-1 btn-success btn-sm" wire:click="openLocaltion({{$model->order_id}})"><i class="fa fa-location-arrow"></i></button>
+                                    <button type="button" class="btn mt-1 btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-close"></i></button>
+                                    <a href="{{route('order-item' , $model->order->id)}}" class="btn  btn-info btn-sm mt-1 ">Buyurtma haqida</a>
                                 </td>
                             </tr>
                         @endforeach

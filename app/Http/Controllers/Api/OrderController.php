@@ -15,7 +15,25 @@ class OrderController extends Controller
 {
     public function orderSave(Request $request){
             $addToCart = AddToCard::where('user_id',$request->user_id)->get();
-            if ($addToCart->isEmpty()){
+        $latitude = $request->map_lat;
+        $longitude = $request->map_long;
+        $request->validate([
+            'client_id' => 'required',
+            'phone' => 'required',
+        ]);
+        if (!$latitude || !$longitude) {
+            return response()->json(['error' => 'Invalid coordinates'], 400);
+        }
+
+        $mapIframe = "<iframe
+            width='600'
+            height='450'
+            style='border:0'
+            loading='lazy'
+            allowfullscreen
+            src='https://yandex.com/map-widget/v1/?ll=$longitude,$latitude&z=14&pt=$longitude,$latitude'>
+        </iframe>";
+        if ($addToCart->isEmpty()){
                 return response()->json([
                     'status'=>false,
                     'message'=>'Buyurtma mavjud emas !',
@@ -24,9 +42,11 @@ class OrderController extends Controller
                 $order = Order::create([
                     'client_id' => $request->user_id,
                     'phone'=>$request->phone,
-                    'address'=>$request->address,
+                    'address'=>$mapIframe,
                     'delivery_price'=>$request->delivery_price,
                     'total_sum'=>$request->total_sum,
+                    'map_lat'=>$request->map_lat,
+                    'map_long'=>$request->map_long
                 ]);
                 if ($order != null){
                     foreach ($addToCart as $item) {

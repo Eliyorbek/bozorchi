@@ -46,6 +46,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/categories/{id}' , [CategoryController::class , 'getCategory']);
     Route::get('/sup-category' , [SupCategoryController::class , 'allSupCategory']);
     Route::get('/products' , [\App\Http\Controllers\Api\ProductsController::class , 'allProducts']);
+    Route::get('/product/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'oneProduct']);
     Route::get('/products/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrCategory']);
     Route::get('/products/sup-category/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrSupCategory']);
     Route::get('/allAddToCard/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'getCart']);
@@ -53,8 +54,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/faq'  , [\App\Http\Controllers\Api\FaqController::class , 'index']);
     Route::get('/banner' , [BannerController::class , 'index']);
     Route::get('/banner/action-url/{slug}' , [BannerController::class , 'bannerOne']);
-    Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
     Route::get('/about' , [\App\Http\Controllers\Backend\AboutController::class , 'allAbout']);
+    Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
+    Route::get('/my-order-item/{id}' , [MyOrderController::class , 'myOrderItem']);
 });
 //Refresh-token route
 Route::post('/refresh-token', [UserController::class, 'refreshToken']);
@@ -65,7 +67,7 @@ Route::get('/user/{id}' , [UserController::class , 'getUser']);
 // add-to-card and reduce-card route
 Route::controller(\App\Http\Controllers\Api\ProductsController::class)->group(function () {
     Route::post('/add-to-cart' , 'addToCart');
-    Route::post('/reduce-cart' , 'reduceCard');
+    Route::post('/remove-cart' , 'reduceCard');
 });
 //Order route
 Route::controller(OrderController::class)->group(function () {
@@ -77,6 +79,9 @@ Route::controller(DistanceController::class)->group(function () {
 });
 //Multiple search rotue
 Route::post('/search' , [SearchController::class, 'search']);
+
+//Comment route
+Route::post('/comment' , [\App\Http\Controllers\Api\CommentController::class , 'store']);
 
 
 
