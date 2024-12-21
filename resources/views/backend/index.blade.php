@@ -1,5 +1,6 @@
 @extends('backend.inc.app')
 @section('content')
+    @if (Auth::user()->role == 1)
     @php
     $orders = \App\Models\Order::where('status',0)->get();
     $status2 = \App\Models\Order::whereIn('status' , [1,2])->get();
@@ -140,6 +141,7 @@
     @livewire('chart.chart-component')
 
 
+    @endif
 @endsection
 
 

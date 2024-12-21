@@ -27,6 +27,7 @@ class MyOrderResource extends JsonResource
             'id'=>$this->id,
             'date'=>$this->created_at->format('d-m-Y'),
             'status'=>$status,
+            'delivery_price'=>$this->delivery_price,
             'orders'=>MyOrderItemResource::collection($items),
         ];
     }

@@ -1,4 +1,6 @@
 @extends('backend.inc.app')
 @section('content')
-    @livewire('boss.category.category-component')
+    @if (Auth::user()->role == 1)
+    @livewire('boss.category.category-component')    
+    @endif
 @endsection

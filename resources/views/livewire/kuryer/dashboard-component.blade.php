@@ -59,7 +59,7 @@
                             <tr>
                                 <td>{{++$num}}</td>
                                  <td>{{$model->kuryer->name}}</td>
-                                <td>{{$model->order->client->phone}}</td>
+                                <td> +998 {{substr($model->order->phone , 0,2)}}  {{substr($model->order->phone , 2,3)}} - {{substr($model->order->phone , 5,6)}} </td>
                                 <td>{{$model->delivery_price}} so'm</td>
                                 <td>{{$total + $model->delivery_price}} so'm</td>
                                 <td style="text-transform: none"><button type="button"  wire:click="statusEdit({{$model->id}})" class="btn btn-sm btn-{{$model->status==2?'success':'warning'}}">{{$model->status==1?'Olmadi':'Oldi'}}</button></td>

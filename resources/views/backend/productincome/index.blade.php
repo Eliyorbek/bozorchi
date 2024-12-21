@@ -1,4 +1,6 @@
 @extends('backend.inc.app')
 @section('content')
-    @livewire('boss.productincome.product-income-component')
+@if (Auth::user()->role == 1)
+@livewire('boss.productincome.product-income-component')
+@endif
 @endsection

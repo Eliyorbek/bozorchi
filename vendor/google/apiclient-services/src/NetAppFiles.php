@@ -704,6 +704,16 @@ class NetAppFiles extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'validateDirectoryService' => [
+              'path' => 'v1/{+name}:validateDirectoryService',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],
           ]
         ]
@@ -836,6 +846,16 @@ class NetAppFiles extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'establishPeering' => [
+              'path' => 'v1/{+name}:establishPeering',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'get' => [
               'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
@@ -908,6 +928,16 @@ class NetAppFiles extends \Google\Service
               ],
             ],'stop' => [
               'path' => 'v1/{+name}:stop',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'sync' => [
+              'path' => 'v1/{+name}:sync',
               'httpMethod' => 'POST',
               'parameters' => [
                 'name' => [

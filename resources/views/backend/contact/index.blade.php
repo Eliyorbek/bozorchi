@@ -1,4 +1,6 @@
 @extends('backend.inc.app')
 @section('content')
-    @livewire('boss.contact.contact-component')
+@if (Auth::user()->role == 1)
+@livewire('boss.contact.contact-component')
+@endif
 @endsection

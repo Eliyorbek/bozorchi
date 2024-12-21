@@ -14,13 +14,10 @@ use function Sodium\add;
 class OrderController extends Controller
 {
     public function orderSave(Request $request){
-            $addToCart = AddToCard::where('user_id',$request->user_id)->get();
+        $addToCart = AddToCard::where('user_id',$request->user_id)->get();
         $latitude = $request->map_lat;
         $longitude = $request->map_long;
-        $request->validate([
-            'client_id' => 'required',
-            'phone' => 'required',
-        ]);
+        
         if (!$latitude || !$longitude) {
             return response()->json(['error' => 'Invalid coordinates'], 400);
         }

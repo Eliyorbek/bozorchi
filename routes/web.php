@@ -17,6 +17,7 @@ use App\Http\Controllers\Kuryer\KuryerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DeliveryController;
+use App\Http\Controllers\Backend\DeliveredController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Backend\BannerController;
 /*
@@ -30,7 +31,7 @@ use App\Http\Controllers\Backend\BannerController;
 |
 */
 
-Route::middleware(['admin' , 'admin.check:1'])->group(function(){
+Route::middleware('admin')->group(function(){
         Route::get('/' , function(){
             $title = 'Dashboard';
             $subtitle ='Dashboard';
@@ -48,8 +49,9 @@ Route::middleware(['admin' , 'admin.check:1'])->group(function(){
     Route::resource('/delivery' , DeliveryController::class);
 
 //    Yetkazilgan zakaslar
-    Route::controller(\App\Http\Controllers\Backend\DeliveredController::class)->group(function(){
+    Route::controller(DeliveredController::class)->group(function(){
         Route::get('/delivered' , 'index')->name('delivered.index');
+        Route::post('/filtr' , 'filtr')->name('filtr');
     });
 //    Brend page route
     Route::resource('/brend' , BrendController::class);
@@ -85,6 +87,7 @@ Route::middleware(['admin' , 'admin.check:1'])->group(function(){
         Route::put('/contact/{id}' , 'update')->name('contact.update');
     });
 
+
 //    Route Faq
     Route::controller(\App\Http\Controllers\Backend\FaqController::class)->group(function(){
         Route::get('/faq' , 'index')->name('faq.index');
@@ -118,7 +121,7 @@ Route::middleware(['admin' , 'admin.check:1'])->group(function(){
 
 
 
-Route::middleware(['admin', 'admin.check:2'])->group(function () {
+Route::middleware('admin')->group(function () {
     Route::controller(KuryerController::class)->group(function(){
         Route::get('/kuryer' , 'index')->name('kuryer.index');
         Route::get('/kuryer/yetkazilganlar' , 'myZakas')->name('kuryer.zakas');

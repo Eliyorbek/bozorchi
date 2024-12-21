@@ -38,6 +38,8 @@
 <script src="/back/dist/js/adminlte.js?v=3.2.0"></script>
 <script src="/back/dist/js/pages/dashboard.js"></script>
 <script src="/back/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 <script src="/back/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/back/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="/back/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -50,9 +52,44 @@
 <script src="/back/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/back/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/back/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
 <script>
+ $(document).ready(function(){
+    $(function () {
+      $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["excel"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+    $(function () {
+      $("#example3").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["excel"]
+      }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+      $('#example4').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+ })
+</script>
+<script>
+    
     // For Select2 4.0
     $("#form-select-sm").select2({
         theme: "bootstrap-5",
@@ -67,23 +104,7 @@
         dropdownCssClass: "select2--small",
     });
 </script>
-<script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["excel", "pdf"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
-</script>
+
 @if (Session::has('price'))
     <script>
         $(function() {

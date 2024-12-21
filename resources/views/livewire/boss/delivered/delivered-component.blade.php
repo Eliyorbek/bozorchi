@@ -1,6 +1,14 @@
 <div>
     <div class="p-4">
 
+        @if($delete==1)
+                @include('livewire.kuryer.delete-message')
+                @include('livewire.show')
+            @elseif($map==1)
+                @include('livewire.kuryer.location')
+                @include('livewire.show')
+            @endif
+
         <div>
             <div class="content-header">
                 <div class="container-fluid">
@@ -18,71 +26,58 @@
                 </div>
             </div>
         </div>
-
-        <div class="card card-outline card-primary mt-2">
-            <div>
-                <div class="card-header row">
-                    <div class="col-lg-12">
-                        <form action="">
-                            <div class="form-group" >
-                                <input type="search" wire:model.live="search" class="form-control" name="" id=""  placeholder="Search">
-                            </div>
-                        </form>
-                    </div>
-                    <table class="table table-bordered table-responsive-lg">
-                        <tr>
-                            <th>Jami buyurtmalarni summasi</th>
-                            <th>{{$total_sum}} <span>So'm</span></th>
-                        </tr>
-                    </table>
+        @php
+            $num=0;
+        @endphp
+        
+            <div class="card card-outline card-primary ">
+                <div class="card-header">
+                    <form action="{{route('filtr')}}" method="POST" class="row">
+                        @csrf
+                        <div class="date col-lg-5">
+                            <input type="date" class="form-control" name="date" wire:model="date">
+                        </div>
+                        <select class="form-select col-lg-6" id="basic-usage" name="kuryer" wire:model="kuryer" data-placeholder="Choose one thing">
+                            <option value="">Kuryerni tanlang</option>
+                                @if(\App\Models\User::where('role' , 2)->get() != null)
+                                    @foreach(\App\Models\User::where('role' , 2)->get()  as $user)
+                                        <option  value="{{$user->name}}">{{$user->name}}</option>
+                                    @endforeach
+                                @endif
+                        </select>
+                        
+                        <div class="card-tools col-lg-1">
+                            <button type="submit"  class="btn btn-primary">
+                               yuborish
+                            </button>
+                        </div>
+                       </form>
                 </div>
-            </div>
-
-            @if($view==1)
-                @include('livewire.kuryer.show')
-                @include('livewire.show')
-            @elseif($delete==1)
-                @include('livewire.kuryer.delete-message')
-                @include('livewire.show')
-            @elseif($map==1)
-                @include('livewire.kuryer.location')
-                @include('livewire.show')
-            @endif
-
-            <div class="card-body">
-                <table class="table table-bordered table-responsive-lg">
-                    @include('livewire.thead')
-                    <tbody>
-                    @if(isset($models))
-                        @foreach($models as $model)
-                            @php
-                                $items = \App\Models\OrderItem::where('order_id' , $model->order_id)->get();
-                                $total = 0;
-                                foreach ($items as $item){
-                                    $total+=$item->total_sum;
-                                }
-                            @endphp
+                <div class="card-body">
+                    <table class="table table-bordered  table-responsive-lg" id="example1">
+                        @include('livewire.thead')
+                         <tbody>
+                            @foreach ($models as $item)
                             <tr>
-                                <td>{{++$num}}</td>
-                                <td>{{$model->kuryer->name}}</td>
-                                <td>{{$model->order->client->name}}</td>
-                                <td>{{$model->delivery_price}} so'm</td>
-                                <td>{{$total + $model->delivery_price}} so'm</td>
-                                <td style="text-transform: none"><button type="button"   class="btn btn-sm btn-success">Yetkazilgan</button></td>
-                                <td>
-                                    <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
-                                    <button type="button" class="btn  btn-info btn-sm" wire:click="openLocaltion({{$model->order_id}})"><i class="fa fa-location-arrow"></i></button>
-                                    <a href="{{route('order-item' , $model->order->id)}}" class="btn  btn-info btn-sm">Buyurtma haqida</a>
-                                </td>
+                             <td>{{$item->id}}</td>
+                             <td>{{$item->kuryer->name}}</td>
+                             <td>{{$item->order->client->name}}</td>
+                             <td>{{$item->delivery_price}} so'm</td>
+                             <td>{{$item->delivery_price + $item->order->total_sum}} so'm</td>
                             </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
-                </table>
-                @if(isset($models))
-                    {{$models->links()}}
-                @endif
+                            @endforeach
+                         </tbody>
+                     </table>
+ 
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                </div>
+                <!-- /.card-footer-->
             </div>
-        </div>
-    </div>
+
+            {{-- <div>
+                {{$models->links()}}
+            </div> --}}
+            
 </div>

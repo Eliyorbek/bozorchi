@@ -13,20 +13,17 @@ use Livewire\WithPagination;
 class DeliveredComponent extends MyComponent
 {
     use WithPagination;
-
+    public 
+            $thead =[
+                0=>'№',
+                1=>'Kuryer',
+                2=>'Mijoz',
+                3=>'yetkazish narx',
+                4=>'to\'lash summasi',
+            ];
     public $title = 'Yetkazilgan buyurtmalar';
-    public $thead =[
-        0=>'№',
-        1=>'Kuryer',
-        2=>'Mijoz',
-        3=>'yetkazish narx',
-        4=>'to\'lash summasi',
-        5=>'status',
-        6=>'harakatlar',
-
-    ];
     public $map=0,$sum=0,$order;
-    public $kuryer,$orderItems,$delivery,$id,$search,$total_sum = 0;
+    public $kuryer,$orderItems,$delivery,$id,$search,$total_sum = 0,$date;
     public function mount(){
         $models = Order::where('status' , '3')->get();
         foreach($models as $model){
@@ -48,25 +45,12 @@ class DeliveredComponent extends MyComponent
         $this->orderItems = OrderItem::where('order_id',$this->delivery->order_id)->get();
     }
 
+    public $view = 0,$dateView=0,$sent;
+
+    
     public function render()
     {
-        if ($this->search){
-            $models = OrderDelivery::where('status' , 3)
-                ->where(function($query){
-                    $query->whereHas('kuryer' , function($query){
-                        $query->where('name' , 'like' , '%'.$this->search.'%');
-                    })
-                        ->orWhereHas('order' , function($query){
-                            $query->whereHas('client' , function($query){
-                                $query->where('name' , 'like' , '%'.$this->search.'%');
-                            });
-                        });
-                })
-                ->orderBy('updated_at', 'desc')
-                ->paginate(15);
-        }else{
-            $models = OrderDelivery::where('status' , 3)->orderBy('updated_at' , 'desc')->paginate(15);
-        }
+        $models = OrderDelivery::where('status' , '3')->orderBy('id' , 'desc')->paginate(15);
         return view('livewire.boss.delivered.delivered-component' , compact('models'));
     }
 }

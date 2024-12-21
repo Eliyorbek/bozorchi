@@ -20,7 +20,7 @@ class ProductsController extends Controller
         $categoryId = $request->query('category_id');
         $sup = $request->query('sup');
         $search = $request->query('search');
-
+        $bannerSlug = $request->query('bannerSlug');
         $products = Product::when($categoryId, function ($query) use ($categoryId) {
             $query->whereHas('category', function ($q) use ($categoryId) {
                 $q->where('id', $categoryId);
@@ -31,6 +31,10 @@ class ProductsController extends Controller
             });
         })->when($search, function ($query) use ($search) {
             $query->where('name', 'like', '%' . $search . '%');
+        })->when($bannerSlug  , function($query) use ($bannerSlug){
+            $query->where('name', 'LIKE' , '%'.$bannerSlug.'%')->orWhereHas('category' , function($q) use ($bannerSlug){
+                $q->where('name' , 'LIKE' , '%'.$bannerSlug.'%');
+            });
         })
             ->where('status', 'active')
             ->paginate($limit);

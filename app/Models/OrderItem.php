@@ -17,7 +17,7 @@ class OrderItem extends Model
         'total_sum'=>'array',
     ];
 
-   public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+   public function product()
    {
        return $this->belongsTo(Product::class , 'product_id');
    }

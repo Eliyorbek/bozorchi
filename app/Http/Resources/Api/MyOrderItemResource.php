@@ -16,11 +16,16 @@ class MyOrderItemResource extends JsonResource
     public function toArray(Request $request): array
     {
         $products = Product::find($this->product_id);
+        if($products->discount_price == null){
+            $price = $products->price;
+        }else{
+            $price=$products->discount_price;
+        }
         return [
             'id'=>$this->id,
             'user_id'=>$this->order->client->id,
             'quantity'=>$this->count,
-            'price'=>$this->total_sum,
+            'price'=>$price,
             'product'=>new ProductsResource($products),
         ];
     }

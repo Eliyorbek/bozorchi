@@ -1,4 +1,6 @@
 @extends('backend.inc.app')
 @section('content')
-    @livewire('dp.delivery-price-component')
+@if (Auth::user()->role == 1)
+@livewire('dp.delivery-price-component')
+@endif
 @endsection()
