@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\MaxDeliveryPrice;
 
 class ProductsController extends Controller
 {
@@ -43,13 +44,13 @@ class ProductsController extends Controller
                 'success' => true,
                 'data' => ProductsResource::collection($products),
                 'pagination' => [
-                    'total' => $products->total(), // Jami mahsulotlar soni
-                    'count' => $products->count(), // Joriy sahifadagi mahsulotlar soni
-                    'per_page' => $products->perPage(), // Har bir sahifadagi mahsulotlar soni
-                    'current_page' => $products->currentPage(), // Joriy sahifa raqami
-                    'last_page' => $products->lastPage(), // Oxirgi sahifa raqami
-                    'next_page_url' => $products->nextPageUrl(), // Keyingi sahifa URL
-                    'prev_page_url' => $products->previousPageUrl(), // Oldingi sahifa URL
+                    'total' => $products->total(), 
+                    'count' => $products->count(), 
+                    'per_page' => $products->perPage(), 
+                    'current_page' => $products->currentPage(),
+                    'last_page' => $products->lastPage(),
+                    'next_page_url' => $products->nextPageUrl(), 
+                    'prev_page_url' => $products->previousPageUrl(),
                 ],
             ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
         }else{
@@ -188,16 +189,23 @@ class ProductsController extends Controller
     }
     public function getCart($id)
     {
+        $free = MaxDeliveryPrice::orderBy('id', 'DESC')->first();
        if (Auth::check()) {
            $cart = AddToCard::where('user_id', $id)->get();
            if ($cart->isEmpty()) {
                return response()->json([
                    'success' => false,
+                   'meta'=>[
+                    'deliveryFreeAbove'=>$free->price
+                   ],
                    'data' => $cart,
                ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
            }else{
                return response()->json([
                    'success' => true,
+                   'meta'=>[
+                    'deliveryFreeAbove'=>$free->price
+                   ],
                    'data'=>AddToCartResource::collection($cart),
                ],200,[],JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
            }

@@ -91,14 +91,7 @@ class ProductController extends Controller
             $request->status = 'inactive';
         }
         if ($request->hasFile('image')) {
-            if ($product->images != null){
-                foreach ($product->images as $image) {
-                    if(public_path('storage/product_img/').$image['path']){
-                        unlink(public_path('storage/product_img/').$image['path']);
-                    }
-                    $image->delete();
-                }
-            }
+            
             foreach ($request->file('image') as $image) {
                 $imgName = md5(rand(111,999).microtime()).".".$image->extension();
                 ProductImage::create([

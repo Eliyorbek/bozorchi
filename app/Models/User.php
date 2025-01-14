@@ -20,6 +20,7 @@ use Laravel\Sanctum\HasApiTokens;
      */
     protected $guarded = ['id'];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -68,6 +69,7 @@ use Laravel\Sanctum\HasApiTokens;
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'role'=>'integer'
     ];
 
     public function delivery(){

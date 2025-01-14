@@ -25,7 +25,7 @@ class OrderComponent extends MyComponent
         7=>'harakatlar',
     ];
 
-    public $user_id,$address,$phone,$delivery_price,$payment_status,$total_sum,$search,$id;
+    public $user_id,$address,$phone,$delivery_price,$payment_status,$total_sum,$search,$id,$statusSearch;
     public $kuryers,$order;
     public function deleteWin($id){
         $this->id = $id;
@@ -74,11 +74,14 @@ class OrderComponent extends MyComponent
     public function render()
     {
         if ($this->search!=null) {
-            $models = Order::where('status' , 0)->whereHas('client' , function ($query){
+            $models = Order::whereHas('client' , function ($query){
                 $query->where('name' , 'like' , '%' . $this->search . '%');
             })->orderBy('id', 'desc')->paginate(10);
-        }else{
-            $models = Order::where('status' , 0)->orderBy('id', 'desc')->paginate(10);
+        }elseif($this->statusSearch!=null) {
+            $models = Order::where('status', $this->statusSearch)->orderBy('id', 'desc')->paginate(10);
+        }
+        else{
+            $models = Order::orderBy('id', 'desc')->paginate(10);
 
         }
         return view('livewire.boss.order.order-component' ,compact('models'));

@@ -20,6 +20,8 @@ use App\Http\Controllers\Backend\DeliveryController;
 use App\Http\Controllers\Backend\DeliveredController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Backend\BannerController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\Backend\ImageDelete;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,6 +75,7 @@ Route::middleware('admin')->group(function(){
 
     Route::resource('/salary' , SalaryController::class);
 
+
 //    Route banner
     Route::controller(BannerController::class)->group(function(){
        Route::get('/banner' , 'index')->name('banner.index');
@@ -117,6 +120,14 @@ Route::middleware('admin')->group(function(){
         Route::get('/comment' , 'index')->name('comment.index');
     });
 
+
+    Route::get('/generate-pdf/{id}', [PDFController::class, 'generatePDF'])->name('pdf');
+
+
+    Route::controller(ImageDelete::class)->group(function(){
+        Route::get('/image-delete/{id}', 'show')->name('image-delete.show');
+        Route::post('/image-delete/{id}', 'destroy')->name('image-delete.destroy');
+    });
 });
 
 

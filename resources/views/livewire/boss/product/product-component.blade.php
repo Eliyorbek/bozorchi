@@ -43,13 +43,14 @@
                                 <td>{{$model->discount_price == null ? '----' : $model->discount_price}} so'm  </td>
                                 <td style="text-transform: none">{{$model->count}} {{$model->brend->name}}</td>
                                 <td><button class="btn btn-sm btn-{{$model->status == 'active'?'success':'warning'}}" wire:click="statusEdit({{$model->id}})">{{$model->status}}</button></td>
-                                <td class="d-flex" style="gap: 3px;flex-wrap: wrap;">
+                                <td class="d-flex" style="gap: 3px;width:90px;">
                                     <button class="btn btn-warning btn-sm" wire:click="updateWindow({{$model->id}})"><i class="fa fa-edit"></i></button>
                                     <button class="btn btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>
-                                    <div wire:ignore>
+                                 <div wire:ignore>
                                         @livewire('boss.product.discount-component' , ['id'=>$model->id])
                                     </div>
                                     <button type="button" class="btn btn-sm btn-danger" wire:click="deleteWin({{$model->id}})"><i class="fa fa-trash-alt"></i></button>
+                                    <a href="{{route('image-delete.show' , $model->id)}}" class="btn btn btn-sm btn-info"><i class="fa fa-image"></i></a>
                                 </td>
                             </tr>
                         @endforeach

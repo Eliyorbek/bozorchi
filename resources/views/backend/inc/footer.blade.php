@@ -53,7 +53,16 @@
 <script src="/back/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/back/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
+<script>
+    $('.print').click(function(e){
+        e.preventDefault();
+        $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["excel"]
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    })
 
+</script>
 <script>
  $(document).ready(function(){
     $(function () {

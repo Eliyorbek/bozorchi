@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryPrice;
 use Illuminate\Http\Request;
+use App\Models\MaxDeliveryPrice;
 
 class DistanceController extends Controller
 {
@@ -39,5 +40,13 @@ class DistanceController extends Controller
                 'message'=>'Masofa aniqlanmagan',
             ]);
         }
+    }
+
+
+    public function price() {
+        return response()->json([
+            'success' => true,
+            'data' => ['price' => MaxDeliveryPrice::orderBy('id' , 'desc')->first()->price]
+        ],200,[],JSON_NUMERIC_CHECK);
     }
 }

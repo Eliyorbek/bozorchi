@@ -42,22 +42,28 @@ Route::middleware(['api', StartSession::class])->group(function () {
 Route::middleware('auth:api')->get('user', [UserController::class, 'me']);
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/categories' , [CategoryController::class , 'allCategories']);
-    Route::get('/categories/{id}' , [CategoryController::class , 'getCategory']);
-    Route::get('/sup-category' , [SupCategoryController::class , 'allSupCategory']);
-    Route::get('/products' , [\App\Http\Controllers\Api\ProductsController::class , 'allProducts']);
-    Route::get('/product/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'oneProduct']);
-    Route::get('/products/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrCategory']);
-    Route::get('/products/sup-category/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrSupCategory']);
     Route::get('/allAddToCard/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'getCart']);
     Route::get('/contact'  , [\App\Http\Controllers\Api\ContactController::class , 'index']);
     Route::get('/faq'  , [\App\Http\Controllers\Api\FaqController::class , 'index']);
-    Route::get('/banner' , [BannerController::class , 'index']);
-    Route::get('/banner/action-url/{slug}' , [BannerController::class , 'bannerOne']);
     Route::get('/about' , [\App\Http\Controllers\Backend\AboutController::class , 'allAbout']);
     Route::get('/my-order/{id}' , [MyOrderController::class , 'myOrder']);
     Route::get('/my-order-item/{id}' , [MyOrderController::class , 'myOrderItem']);
 });
+
+Route::get('/banner' , [BannerController::class , 'index']);
+Route::get('/banner/action-url/{slug}' , [BannerController::class , 'bannerOne']);
+Route::get('/free-price' , [DistanceController::class , 'price']);
+Route::get('/categories' , [CategoryController::class , 'allCategories']);
+Route::get('/categories/{id}' , [CategoryController::class , 'getCategory']);
+Route::get('/sup-category' , [SupCategoryController::class , 'allSupCategory']);
+Route::get('/products' , [\App\Http\Controllers\Api\ProductsController::class , 'allProducts']);
+Route::get('/product/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'oneProduct']);
+Route::get('/products/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrCategory']);
+Route::get('/products/sup-category/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrSupCategory']);
+
+//Route login google auth bilan emas
+Route::post('/login', [UserController::class , 'loginAuth']);
+
 //Refresh-token route
 Route::post('/refresh-token', [UserController::class, 'refreshToken']);
 //Auth-google route

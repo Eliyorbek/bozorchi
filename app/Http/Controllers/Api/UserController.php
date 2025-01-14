@@ -131,5 +131,47 @@ class UserController extends Controller
     }
 
 
+    public function loginAuth(Request $request) {
+        $request->validate([
+            'email' =>'required|string|email',
+            'password' => 'required|string|min:8',
+            'name'=>'required|string',
+        ]);
+
+        $user = User::where('email' , $request->email)->where('name' , $request->name)->first();
+        if($user){
+            if(Hash::check($user->password , $request->password)){
+                $token = JWTAuth::fromUser($user);
+                return response()->json([
+                   'success'=>true,
+                    'data'=>[
+                        'id'=>$user->id,
+                        'name'=>$user->name,
+                        'email'=>$user->email,
+                    ],
+                    'token'=>$token,
+                ],200, [], JSON_UNESCAPED_SLASHES);
+            }
+        }else{
+           $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 3,
+            ]);
+            $token = JWTAuth::fromUser($user);
+            return response()->json([
+                'success'=>true,
+                 'data'=>[
+                     'id'=>$user->id,
+                     'name'=>$user->name,
+                     'email'=>$user->email,
+                 ],
+                 'token'=>$token,
+             ],200, [], JSON_UNESCAPED_SLASHES);
+        }
+    }
+
+
 
 }

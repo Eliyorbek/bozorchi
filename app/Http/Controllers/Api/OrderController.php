@@ -17,7 +17,10 @@ class OrderController extends Controller
         $addToCart = AddToCard::where('user_id',$request->user_id)->get();
         $latitude = $request->map_lat;
         $longitude = $request->map_long;
-        
+        $sum = 0;
+        foreach ($addToCart as $item){
+            $sum += $item->count * $item->price;
+        }
         if (!$latitude || !$longitude) {
             return response()->json(['error' => 'Invalid coordinates'], 400);
         }
@@ -40,7 +43,7 @@ class OrderController extends Controller
                     'client_id' => $request->user_id,
                     'phone'=>$request->phone,
                     'address'=>$mapIframe,
-                    'delivery_price'=>$request->delivery_price,
+                    'delivery_price'=>$sum>=400000 ? 0 : $request->delivery_price,
                     'total_sum'=>$request->total_sum,
                     'map_lat'=>$request->map_lat,
                     'map_long'=>$request->map_long
@@ -54,7 +57,6 @@ class OrderController extends Controller
                             'price' => $item->price,
                             'total_sum' => $item->count*$item->price,
                         ]);
-                        Product::where('id', $item->product_id)->first()->decrement('count', $item->count);
                         $item->delete();
                     }
                     return response()->json([
