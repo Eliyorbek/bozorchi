@@ -37,7 +37,7 @@ class ProductsController extends Controller
                 $q->where('name' , 'LIKE' , '%'.$bannerSlug.'%');
             });
         })
-            ->where('status', 'active')
+            ->where('status', 'active')->inRandomOrder()
             ->paginate($limit);
         if($products!=null){
             return response()->json([

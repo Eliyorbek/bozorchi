@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\AddToCard;
+use App\Models\MaxDeliveryPrice;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -18,6 +19,7 @@ class OrderController extends Controller
         $latitude = $request->map_lat;
         $longitude = $request->map_long;
         $sum = 0;
+        $free = MaxDeliveryPrice::orderBy('id', 'desc')->first();
         foreach ($addToCart as $item){
             $sum += $item->count * $item->price;
         }
@@ -43,7 +45,7 @@ class OrderController extends Controller
                     'client_id' => $request->user_id,
                     'phone'=>$request->phone,
                     'address'=>$mapIframe,
-                    'delivery_price'=>$sum>=400000 ? 0 : $request->delivery_price,
+                    'delivery_price'=>$sum>=$free->price ? 0 : $request->delivery_price,
                     'total_sum'=>$request->total_sum,
                     'map_lat'=>$request->map_lat,
                     'map_long'=>$request->map_long

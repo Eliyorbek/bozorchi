@@ -51,7 +51,7 @@
                                         <span>{{$item->product->name}};</span>
                                     @endforeach
                                 </td>
-                                <td>{{$total}} so'm</td>
+                                <td>{{$total + $model->delivery_price}} so'm</td>
                                 <td style="text-transform: none"><button type="button"  class="btn btn-sm btn-{{$model->status==2?'success':'warning'}}">{{$model->status==1?'Olmadi':'Oldi'}}</button></td>
                                 <td style="width: 250px;">
                                     <button type="button" class="btn  mt-1 btn-outline-secondary btn-sm" wire:click="updateWindow({{$model->id}})">Buyurtma qo'shish</button>

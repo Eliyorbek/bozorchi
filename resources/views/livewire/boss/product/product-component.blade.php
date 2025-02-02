@@ -58,8 +58,10 @@
                     </tbody>
                 </table>
                 @if(isset($models))
-                    {{$models->links()}}
-                @endif
+                <div wire:key="pagination">
+                    {{ $models->links() }}
+                </div>
+            @endif
             </div>
         </div>
     </div>

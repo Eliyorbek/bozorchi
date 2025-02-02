@@ -19,10 +19,9 @@ class DashboardComponent extends MyComponent
         0=>'№',
         1=>'Mijoz',
         2=>'Phone',
-        3=>'yetkazish narx',
-        4=>'to\'lash summasi',
-        5=>'status',
-        6=>'harakatlar',
+        3=>'to\'lash summasi',
+        4=>'status',
+        5=>'harakatlar',
 
     ];
     public $map=0,$sum=0,$order;

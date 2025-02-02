@@ -19,10 +19,12 @@ class OrderComponent extends MyComponent
         1=>'mijoz',
         2=>'phone',
         3=>'address',
-        4=>'yetkazish narx',
-        5=>'to\'lov holati',
-        6=>'jami summa',
-        7=>'harakatlar',
+        4=>'yetkazish',
+        5=>'harid',
+        6=>'jami',
+        7=>'to\'lov holati',
+        8=>'Zakas vaqti',
+        9=>'harakatlar',
     ];
 
     public $user_id,$address,$phone,$delivery_price,$payment_status,$total_sum,$search,$id,$statusSearch;
@@ -76,12 +78,12 @@ class OrderComponent extends MyComponent
         if ($this->search!=null) {
             $models = Order::whereHas('client' , function ($query){
                 $query->where('name' , 'like' , '%' . $this->search . '%');
-            })->orderBy('id', 'desc')->paginate(10);
+            })->orderBy('id', 'desc')->where('status', '!=' , '4')->paginate(10);
         }elseif($this->statusSearch!=null) {
-            $models = Order::where('status', $this->statusSearch)->orderBy('id', 'desc')->paginate(10);
+            $models = Order::where('status', $this->statusSearch)->orderBy('id', 'desc')->where('status', '!=' , '4')->paginate(10);
         }
         else{
-            $models = Order::orderBy('id', 'desc')->paginate(10);
+            $models = Order::orderBy('id', 'desc')->where('status', '!=' , '4')->paginate(10);
 
         }
         return view('livewire.boss.order.order-component' ,compact('models'));

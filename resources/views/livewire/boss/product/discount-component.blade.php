@@ -16,7 +16,7 @@
                             <input type="text" disabled value="{{$price}} so'm"  class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="sale">Sotuv narxiga foiz kiriting(%)</label>
+                            <label for="sale">Sotuv narxini kiriting</label>
                             <input type="number" id="sale" name="discount_price" wire:model.live="discount_price" placeholder="Narxni belgilash uchun foiz kiriting" class="form-control">
                         </div>
                         <div class="form-group">

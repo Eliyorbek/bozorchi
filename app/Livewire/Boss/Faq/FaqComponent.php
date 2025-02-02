@@ -9,7 +9,7 @@ use Livewire\Component;
 class FaqComponent extends MyComponent
 {
 
-    public $title = 'Dastur haqida';
+    public $title = 'Ko\'p beriladigan savollar';
 
     public $thead = [
         0=>'№',

@@ -22,12 +22,9 @@ class DeliveryPriceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'min_km' => 'required|numeric|min:0',
-            'min_price' => 'required|numeric|min:0',
-            'max_km' => 'required|numeric|min:0',
-            'max_price' => 'required|numeric|min:0',
-            'standart_km' => 'required|numeric|min:0',
-            'standart_price' => 'required|numeric|min:0',
+            'min' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
+            
         ];
     }
 }

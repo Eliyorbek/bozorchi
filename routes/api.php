@@ -62,7 +62,8 @@ Route::get('/products/{id}' , [\App\Http\Controllers\Api\ProductsController::cla
 Route::get('/products/sup-category/{id}' , [\App\Http\Controllers\Api\ProductsController::class , 'ProductFiltrSupCategory']);
 
 //Route login google auth bilan emas
-Route::post('/login', [UserController::class , 'loginAuth']);
+Route::post('/register', [UserController::class , 'register']);
+Route::post('/login', [UserController::class , 'login']);
 
 //Refresh-token route
 Route::post('/refresh-token', [UserController::class, 'refreshToken']);

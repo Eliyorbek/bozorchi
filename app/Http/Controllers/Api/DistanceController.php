@@ -11,30 +11,29 @@ class DistanceController extends Controller
 {
     public function deliveryPrice(Request $request) {
         $dp = DeliveryPrice::orderBy('id' , 'DESC')->first();
+        $free = MaxDeliveryPrice::orderBy('id' , 'DESC')->first();
+        dd($free->price);
         if ($request->distance != null){
-           if ($request->total_sum >= 400000){
+           if ($request->total_sum >= $free->price){
                return response()->json([
                    'success' => true,
                    'data' => 0,
                ],200,[],JSON_NUMERIC_CHECK);
            }else{
-               if($request->distance <= $dp->min_km){
-                   return response()->json([
+            if($request->distance > 1){
+                $price = 1 * $dp->min + ($request->distance - 1) * $dp->price; 
+            return response()->json([
                        'success' => true,
-                       'data' => $dp->min_price,
-                   ],200,[],JSON_NUMERIC_CHECK);
-               }elseif ($request->distance <= $dp->standart_km && $request->distance > $dp->min_km){
-                   return response()->json([
+                       'data' => $price,
+            ],200,[],JSON_NUMERIC_CHECK);
+           }else{
+            $price = $dp->min; 
+            return response()->json([
                        'success' => true,
-                       'data' => $dp->standart_price,
-                   ],200,[],JSON_NUMERIC_CHECK);
-               }else{
-                   return response()->json([
-                       'success' => true,
-                       'data' => $dp->max_price,
-                   ],200,[],JSON_NUMERIC_CHECK);
-               }
+                       'data' => $price,
+            ],200,[],JSON_NUMERIC_CHECK);
            }
+            }
         }else{
             return response()->json([
                 'message'=>'Masofa aniqlanmagan',

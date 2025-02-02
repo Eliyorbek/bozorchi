@@ -22,6 +22,8 @@ class MyOrderResource extends JsonResource
            $status = 'yeg\'ilyapti';
        }elseif($this->status == 3){
            $status= 'yetkazildi';
+       }else{
+         $status = 'bekor qilindi';
        }
         return [
             'id'=>$this->id,

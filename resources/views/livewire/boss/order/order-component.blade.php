@@ -52,9 +52,11 @@
                             <tr style="background-color: {{$color}}">
                                 <td>{{$model->id}}</td>
                                 <td>{{$model->client->name}}</td>
-                                <td>{{$model->phone}}</td>
+                                <td><a href="tel:{{$model->phone}}">{{$model->phone}}</a></td>
                                 <td style="width: 150px;height: 150px;">{!!$model->address!!}</td>
                                 <td>{{$model->delivery_price}} so'm</td>
+                                <td>{{$model->total_sum}} so'm</td>
+                                <td>{{$model->total_sum + $model->delivery_price}} so'm</td>
                                 <td style="text-transform: none">
                                     @if ($model->status == 0 || $model->status == 1)
                                     <button type="button"  class="btn btn-sm btn-danger">To'lanmagan</button>
@@ -62,7 +64,7 @@
                                     <button type="button"  class="btn btn-sm btn-success">To'langan</button>
                                     @endif
                                 </td>
-                                <td>{{$model->total_sum}} so'm</td>
+                                <td>{{$model->created_at->format('d.m.y H:i')}}</td>
                                 <td>
                                     <a href="{{route('order-item' , $model->id)}}" class="btn  btn-info btn-sm">Buyurtma haqida</a>
 {{--                                    <button type="button" class="btn  btn-primary btn-sm" wire:click="showWindow({{$model->id}})"><i class="fa fa-eye"></i></button>--}}
@@ -79,7 +81,9 @@
                     </tbody>
                 </table>
                 @if(isset($models))
-                    {{$models->links()}}
+                    <div wire:key="pagination">
+                        {{ $models->links() }}
+                    </div>
                 @endif
 
               

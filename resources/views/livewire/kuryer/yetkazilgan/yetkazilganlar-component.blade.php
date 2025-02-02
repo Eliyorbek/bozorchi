@@ -60,7 +60,6 @@
                                 <td>{{++$num}}</td>
                                 <td>{{$model->kuryer->name}}</td>
                                 <td>{{$model->order->client->phone}}</td>
-                                <td>{{$model->delivery_price}} so'm</td>
                                 <td>{{$total + $model->delivery_price}} so'm</td>
                                 <td style="text-transform: none"><button type="button"   class="btn btn-sm btn-success">Yetkazilgan</button></td>
                                 <td>

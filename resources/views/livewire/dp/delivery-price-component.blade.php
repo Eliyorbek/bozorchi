@@ -21,12 +21,8 @@
                         @foreach($models as $user)
                             <tr>
                                 <td>{{++$num}}</td>
-                                <td>{{$user->min_km}}</td>
-                                <td>{{$user->min_price}}</td>
-                                <td>{{$user->standart_km}}</td>
-                                <td>{{$user->standart_price}}</td>
-                                <td>{{$user->max_km}}</td>
-                                <td>{{$user->max_price}}</td>
+                                <td>{{$user->min}} so'm</td>
+                                <td>{{$user->price}} so'm</td>
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" wire:click="updateWindow({{$user->id}})"><i class="fa fa-edit"></i></button>
                                     <button type="button" class="btn btn-sm btn-danger" wire:click="deleteUser({{$user->id}})"><i class="fa fa-trash-alt"></i></button>

@@ -34,7 +34,7 @@ class DiscountComponent extends MyComponent
     public function render()
     {
         if($this->discount_price!=null){
-            $this->sotuv = $this->price - ($this->price / 100 * $this->discount_price);
+            $this->sotuv = $this->discount_price;
         }else{
             $this->sotuv = 0;
         }

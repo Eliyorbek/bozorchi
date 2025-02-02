@@ -11,15 +11,15 @@
                     @csrf
                     <div class="row">
                         <div class="form-group col-lg-6">
-                            <label for="name" class="name">Min km</label>
-                            <input type="text" id="name" name="min_km" class="form-control" wire:model="name" placeholder="Min masofani kiriting">
+                            <label for="name" class="name">Minimalka</label>
+                            <input type="text" id="name" name="min" class="form-control" wire:model="name" placeholder="Minimalkani kiriting">
                         </div>
                         <div class="form-group col-lg-6">
-                            <label for="nam" class="name">Min narx</label>
-                            <input type="text" id="nam" name="min_price" class="form-control" wire:model="name" placeholder="Min narxni kiriting">
+                            <label for="nam" class="name">Oshirish narxi</label>
+                            <input type="text" id="nam" name="price" class="form-control" wire:model="name" placeholder="Oshirish narxni kiriting">
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="form-group col-lg-6">
                             <label for="na" class="name">Standart km</label>
                             <input type="text" id="na" name="standart_km" class="form-control" wire:model="name" placeholder="Standart masofani kiriting">
@@ -38,7 +38,7 @@
                             <label for="pr" class="name">Max narx</label>
                             <input type="text" id="pr" name="max_price" class="form-control" wire:model="name" placeholder="Max narxni kiriting">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group mt-2">
                         <button type="button" class="btn btn-secondary" wire:click="close()">Close</button>
                         <button type="submit"  class="btn btn-primary">Save</button>

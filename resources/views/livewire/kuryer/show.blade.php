@@ -21,14 +21,6 @@
                         @php $sum+=$orderItem->total_sum; @endphp
                     @endforeach
                     <tr>
-                        <th>Jami harid summasi</th>
-                        <td>{{$sum}} so'm</td>
-                    </tr>
-                    <tr>
-                        <th>Yetkazish narxi</th>
-                        <td>{{$order->delivery_price}} so'm</td>
-                    </tr>
-                    <tr>
                         <th>Jami to'lov summasi</th>
                         <td>{{$order->delivery_price + $sum}} so'm</td>
                     </tr>

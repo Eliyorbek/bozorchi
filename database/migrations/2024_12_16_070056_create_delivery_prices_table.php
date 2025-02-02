@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('delivery_prices', function (Blueprint $table) {
             $table->id();
-            $table->float('min_km');
-            $table->float('min_price');
-            $table->float('standart_km');
-            $table->float('standart_price');
-            $table->float('max_km');
-            $table->float('max_price');
+            $table->float('min');
+            $table->float('price');
+            // $table->float('standart_km');
+            // $table->float('standart_price');
+            // $table->float('max_km');
+            // $table->float('max_price');
             $table->timestamps();
         });
     }
